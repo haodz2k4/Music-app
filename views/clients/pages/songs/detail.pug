@@ -1,0 +1,67 @@
+extends ../../layouts/default.pug 
+
+block main 
+    .container.mt-5
+      .row
+        .col-md-6
+          img.img-fluid.rounded(src=song.avatar, alt='Ngày Mai Người Ta Lấy Chồng')
+        .col-md-6
+          h1.song-title #{song.title}
+          p.song-description #{song.description}
+          p.song-info
+            strong Ca sĩ 
+            |  #{single.fullName}
+          p.song-info
+            strong Chủ đề 
+            |  #{topic.title}
+          p.song-info
+            strong Likes: 
+            i.fa-solid.fa-thumbs-up(btn-like=song.id like-status=song.isLiked class=`${song.isLiked === "liked" ? "active" : ""}`)
+              |  #{song.like} 
+          p.song-info
+            strong Yêu thích: 
+            i.fa-solid.fa-heart(btn-favorite=song.id favorite-status=song.isFavorite class=`${song.isFavorite === "remove" ? "favorite-active" : ""}`) 
+          p.song-info
+            strong Lượt nghe: 
+            i.fa-solid.fa-headphones(listening-statistics)
+              |  #{song.listen}
+          p.song-info
+            strong Ng&agrave;y &dstrok;&abreve;ng:
+            |  2024-06-01
+          audio(controls='' audio-song=song.id)
+            source(src=song.audio, type='audio/mpeg')
+                              
+      .row.mt-4
+        .col-12
+          h2.lyrics-title Lời bài hát 
+          .lyrics-content
+            | !{song.lyrics} 
+          .container.comment-box
+      .comment-card
+        h3 Bình luận ở đây
+        form.comment-form(form-comment=song.id class=`${infoUser == undefined ? "d-none" : " "}` )
+          .form-group
+            textarea.form-control(rows='5', placeholder='Viết comment của bạn ở đây')
+          button.submit-btn(type='submit' style='margin-top: 10px')
+            i.fa-solid.fa-paper-plane
+            |  Gửi  
+        if infoUser != null
+          div(info-user=`${infoUser.fullName ? infoUser.fullName : "notLogin" }-${moment(Date.now()).format('MMMM Do YYYY, h:mm:ss a')}`).d-none
+        .comment-list 
+          if comments.length > 0
+            each item in comments
+              .comment.d-flex 
+                .avatar.mr-3
+                  img(src='https://via.placeholder.com/50', alt='User Avatar')
+                .comment-body
+                  h5.mb-1 #{item.infoUser.fullName}
+                  p.mb-1 #{item.content}
+                  .comment-info #{moment(item.createdAt).format('MMMM Do YYYY, h:mm:ss a')}  
+                  if infoUser != null
+                    if (infoUser.id === item.infoUser.id)
+                      .comment-actions.mt-2 
+                        button.btn.btn-sm.btn-primary.btn-edit.mr-2(style='margin-right: 5px') Sửa 
+                        button.btn.btn-sm.btn-danger.btn-delete Xóa 
+          else 
+            h2.text-center Chưa có bình luận nào 
+          

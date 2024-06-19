@@ -1,0 +1,256 @@
+body {
+  background-color: #fff9c4;
+}
+.logo {
+    height: 40px;
+    width: auto;
+}
+
+.navbar {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.nav-link {
+    font-size: 1rem;
+    margin-right: 1rem;
+}
+
+.nav-link:hover {
+    color: #007bff;
+}
+
+@media (max-width: 992px) {
+    .nav-link {
+        margin-right: 0;
+        padding: 0.5rem 1rem;
+    }
+}
+
+
+.card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-body {
+    background: linear-gradient(145deg, #ffffff, #e6e6e6);
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.card-text {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.d-flex {
+    font-size: 0.85rem;
+    color: #999;
+}
+
+.song-title {
+    color: #333;
+}
+
+.song-description {
+    color: #666;
+}
+
+.song-info {
+    font-size: 0.9rem;
+    color: #888;
+}
+
+.lyrics-title {
+    color: #333;
+}
+
+.lyrics-content {
+    color: #666;
+    margin-top: 20px;
+    white-space: pre-wrap;
+}
+
+/* Responsive styling for small screens */
+@media (max-width: 768px) {
+    .col-md-6 {
+        margin-top: 20px;
+    }
+}
+.active {
+    color: #007bff;
+}
+.song-item {
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .song-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  }
+  .song-item img {
+    max-width: 100px;
+    height: auto;
+    border-radius: 10px;
+  }
+  .song-item h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  .song-item p {
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+  .song-item audio {
+    width: 100%;
+    margin-top: 10px;
+  }
+  .favorite-active {
+    color: red;
+  }
+  .comment-box {
+    margin-top: 30px;
+  }
+  .comment-form textarea {
+    resize: none;
+  }
+  .comment-list {
+    margin-top: 20px;
+  }
+  .comment {
+    margin-bottom: 20px;
+  }
+  .comment .avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 5px;
+  }
+  .comment .avatar img {
+    width: 100%;
+    height: auto;
+  }
+  .comment .comment-body {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #e0e0e0;
+  }
+  .comment .comment-info {
+    font-size: 0.9em;
+    color: #888;
+  }
+  .comment-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  }
+  .comment-card h3 {
+    margin-bottom: 20px;
+  }
+  .submit-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .submit-btn:hover {
+    background-color: #0056b3;
+  } 
+  /* suggestions  */
+  .suggestions {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ced4da;
+    z-index: 1000;
+    width: 250px;
+}
+.suggestion-item {
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.suggestion-item img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+.suggestion-item:hover {
+    background-color: #f8f9fa;
+}
+/* end suggestions  */
+
+body {
+  font-family: 'Lato', sans-serif;
+}
+
+h1, h2, h3 {
+  font-family: 'Lato', sans-serif;
+}
+
+p {
+  font-family: 'Lato', sans-serif;
+}
+.singer-card {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.singer-card .card-img-top {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.singer-card .card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.singer-card .card-text {
+  font-size: 1rem;
+  color: #757575;
+}
+
+.singer-card .btn {
+  margin-top: 15px;
+  padding: 10px 20px;
+}

@@ -1,0 +1,22 @@
+extends ../../layouts/default.pug 
+
+block main 
+    .container.mt-5
+      .row
+        // Bài hát 1
+        if songs.length > 0
+          each item in songs
+            .col-md-3.mb-4
+              .card.h-100
+                a(href="detail/"+item.slug) 
+                  img.card-img-top(src=item.avatar, alt='Bài hát 1')
+                .card-body  
+                  h5.card-title #{item.title}
+                  p.card-text Ca sĩ #{item.singleName}
+                  .d-flex.justify-content-between
+                    span.card-text
+                      i.fa-solid.fa-heart    #{item.like}
+                      i.fa-solid.fa-headphones(style='margin-left: 12px')     #{item.listen}
+                    span.card-text 2024-06-01
+        else 
+          h1.text-center Không thể tìm thấy dữ liệu 

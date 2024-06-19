@@ -1,0 +1,41 @@
+extends ../../layouts/user.pug 
+include ../../mixins/show-alert.pug 
+block main 
+    .login
+      img.login__img(src='/images/login-bg.png', alt='login image') 
+      form.login__form(action='' method="POST")
+        h1.login__title Đăng ký 
+        +alertSuccess(success_msg)
+        +alertError(error_msg)
+        .login__content
+          .login__box
+            i.ri-user-3-line.login__icon
+            .login__box-input
+              input#login-email.login__input(type='text', required='', placeholder=' ', name='fullName')
+              label.login__label(for='login-email') Họ và tên 
+          .login__box
+            i.ri-user-3-line.login__icon
+            .login__box-input
+              input#login-email.login__input(type='email', required='', placeholder=' ', name='email')
+              label.login__label(for='login-email') Email
+          .login__box
+            i.ri-lock-2-line.login__icon
+            .login__box-input
+              input#login-pass.login__input(type='password', required='', placeholder=' ', name='password')
+              label.login__label(for='login-pass') Mật khẩu
+              i#login-eye.ri-eye-off-line.login__eye
+          .login__box
+            i.ri-lock-2-line.login__icon
+            .login__box-input
+              input#login-pass.login__input(type='password', required='', placeholder=' ', name='repeatPassword')
+              label.login__label(for='login-pass') Xác nhận mật khẩu 
+              i#login-eye.ri-eye-off-line.login__eye
+        .login__check
+          .login__check-group
+            input#login-check.login__check-input(type='checkbox')
+            label.login__check-label(for='login-check') Remember me
+          a.login__forgot(href='#') Forgot Password?
+        button.login__button(type='submit') Đăng ký
+        p.login__register
+          | Don&apos;t have an account? 
+          a(href='#') Register

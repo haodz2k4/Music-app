@@ -1,0 +1,67 @@
+extends ../../layouts/default.pug 
+
+
+block main 
+    .container.mt-5
+      h1 Danh sách mới phát hành 
+      .row
+        // Bài hát 1
+        if newSongs.length > 0
+          each item in newSongs
+            .col-md-3.mb-4
+              .card.h-100
+                a(href="detail/"+item.slug) 
+                  img.card-img-top(src=item.avatar, alt='Bài hát 1')
+                .card-body  
+                  h5.card-title #{item.title}
+                  p.card-text Ca sĩ #{item.singleName}
+                  .d-flex.justify-content-between
+                    span.card-text
+                      i.fa-solid.fa-heart    #{item.like}
+                      i.fa-solid.fa-headphones(style='margin-left: 12px')     #{item.listen}
+                    span.card-text 2024-06-01 
+          .container
+            .text-center
+              button.btn.btn-outline-light.btn-lg(type='button' style='color: black' limit-songs) 
+                | Xem thêm 
+                i.fa-solid.fa-arrow-down
+        else 
+          h1.text-center Không thể tìm thấy dữ liệu  
+    .container.mt-5 
+      h2 Danh sách chủ đề được yêu thích 
+      .row
+       if topics.length > 0
+        each item in topics
+          .col-md-6.col-lg-3
+            .card.mb-4.shadow-sm
+              img.card-img-top(src=item.avatar, alt='Thumbnail bài hát 1')
+              .card-body
+                h5.card-title #{item.title}
+                p.card-text #{item.description}
+                a.btn.btn-primary(href='/songs/'+ item.slug) Xem chi tiết  
+        .container
+            .text-center
+              button.btn.btn-outline-light.btn-lg(type='button' style='color: black' limit-topics) 
+                | Xem thêm 
+                i.fa-solid.fa-arrow-down
+       else 
+        h1.text-center Không có chủ đề nào 
+    .container.my-5
+      h2 Danh sách ca sĩ yêu thích 
+      .row
+        each item in singers
+          .col-lg-3.col-md-6.mb-4
+            .card.singer-card.text-center
+              img.card-img-top.rounded-circle.mx-auto.mt-3(src=item.avatar, alt='Bích Phương')
+              .card-body
+                h5.card-title #{item.fullName}
+                p.card-text S&#x1ED1; l&#x1B0;&#x1EE3;ng b&agrave;i h&aacute;t: 50
+                p.card-text 416K ng&#x1B0;&#x1EDD;i theo d&otilde;i
+                a.btn.btn-primary(href='#') Theo d&otilde;i 
+        .container
+            .text-center
+              button.btn.btn-outline-light.btn-lg(type='button' style='color: black' limit-singers) 
+                | Xem thêm 
+                i.fa-solid.fa-arrow-down  
+        
+    

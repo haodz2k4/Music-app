@@ -1,0 +1,10 @@
+mixin alertSuccess(success_msg) 
+    if success_msg.length
+        .alert-success
+            span.closebtn(onclick="this.parentElement.style.display='none';") &times;
+            | #{success_msg} 
+mixin alertError(error_msg) 
+    if error_msg.length
+        .alert
+            span.closebtn(onclick="this.parentElement.style.display='none';") &times;
+            | #{error_msg} 

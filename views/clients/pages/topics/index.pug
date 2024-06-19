@@ -1,0 +1,18 @@
+extends ../../layouts/default.pug 
+
+
+block main 
+    .container.mt-5
+      .row
+       if topics.length > 0
+        each item in topics
+          .col-md-6.col-lg-3
+            .card.mb-4.shadow-sm
+              img.card-img-top(src=item.avatar, alt='Thumbnail bài hát 1')
+              .card-body
+                h5.card-title #{item.title}
+                p.card-text #{item.description}
+                a.btn.btn-primary(href='/songs/'+ item.slug) Xem chi tiết 
+       else 
+        h1.text-center Không có chủ đề nào
+        

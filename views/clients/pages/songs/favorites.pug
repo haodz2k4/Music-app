@@ -1,0 +1,23 @@
+extends ../../layouts/default.pug 
+
+
+block main 
+     .container
+      h1.text-center.mt-4.mb-4 
+        i.fa-solid.fa-heart
+        |  Bài hát yêu thích
+      if Favorite.length > 0 
+        each item in Favorite
+          .song-item
+            .row.align-items-center
+              .col-md-3
+                img.img-fluid(src=item.infoSong.avatar, alt='Ảnh bài hát 1')
+              .col-md-9
+                h3 #{item.infoSong.title} 
+                p #{item.infoSong.description}
+                audio(controls='')
+                  source(src=item.infoSong.audio, type='audio/mpeg')  
+      else 
+        h1.text-center Chưa có bài hát yêu thích nào
+           
+      

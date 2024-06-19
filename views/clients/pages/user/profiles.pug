@@ -1,0 +1,36 @@
+extends ../../layouts/default.pug 
+
+block main 
+    .container.mt-5
+      .row
+        .col-md-3
+          .profile-card.text-center
+            img.profile-avatar(src=`${user.avatar ? user.avatar : "/images/profile_3.png"}`,style='width: 200px; height: 200px', alt='Avatar')
+            h3.profile-name #{user.fullName}
+            p.profile-info Ng&#x1B0;&#x1EDD;i y&ecirc;u nh&#x1EA1;c, th&iacute;ch nghe nh&#x1EA1;c Pop v&agrave; Rock.
+            p.profile-email #{user.email}
+            p.badge.text-bg-success #{user.status}
+            p.profile-email Tham gia vào: #{moment(user.createdAt).subtract(10, 'days').calendar()} 
+            
+        .col-md-9(style='margin-bottom: 30px')
+          .song-list
+            h2 B&agrave;i h&aacute;t &dstrok;&atilde; Like
+            ul.list-group
+              li.list-group-item
+                .song-item
+                  img.song-thumbnail(src='song1.jpg', alt='Song 1')
+                  .song-details
+                    h5.song-title Shape of You
+                    p.song-artist Ed Sheeran
+                    audio(controls='')
+                      source(src='shape_of_you.mp3', type='audio/mpeg')
+                                        
+              li.list-group-item
+                .song-item
+                  img.song-thumbnail(src='song2.jpg', alt='Song 2')
+                  .song-details
+                    h5.song-title Rolling in the Deep
+                    p.song-artist Adele
+                    audio(controls='')
+                      source(src='rolling_in_the_deep.mp3', type='audio/mpeg')
+                                        
