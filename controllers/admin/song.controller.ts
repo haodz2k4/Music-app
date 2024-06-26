@@ -7,10 +7,21 @@ import Singer from '../../models/singer.model';
 //[GET] "/admin/song"
 export const index = async (req: Request, res: Response) :Promise<void> =>{
 
-    const songs = await Song.find({
+    interface Find {
+        deleted: boolean,
+        status: string,
+        title?: RegExp
+    }
+    const Find: Find = {
         deleted: false,
         status: "active"
-    })
+    }
+    const keyword = req.query.keyword;
+    if(typeof keyword === 'string'){
+        const regrex: RegExp = new RegExp(keyword);
+        Find.title = regrex
+    }
+    const songs = await Song.find(Find)
     res.render("admin/pages/song/index.pug",{
         activePages: 'songs',
         pageTitle: 'Quản lý bài hát',
