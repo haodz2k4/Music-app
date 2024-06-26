@@ -1,0 +1,27 @@
+extends ../../layouts/default.pug 
+include ../../mixins/show-alert.pug 
+block main 
+  .container
+    +alertSuccess(success_msg)
+    +alertError(error_msg)
+    .form-container
+      h2 Chỉnh sửa 
+      form(method="POST" action='/user/edit?_method=PATCH' enctype="multipart/form-data")
+        .form-group
+          label(for='photo') Upload Photo:
+          input#photo.form-control(type='file', name='avatar', accept='image/*')
+          img(src=infoUser.avatar, alt="", style='width: 100px; height: 80px')
+        .form-group
+          label(for='fullName') Full Name:
+          input#fullName.form-control(type='text', name='fullName', required='' value=infoUser.fullName)
+        .form-group
+          label(for='birthDate') Birth Date:
+          input#birthDate.form-control(type='date', name='birthDate', required='' value=infoUser.birthDate)
+        .form-group
+          label(for='description') Description:
+          textarea#description.form-control(name='description', rows='3') #{infoUser.description}
+        .form-group
+          label(for='email') Email:
+          input#email.form-control(type='email', name='email', required='' value=infoUser.email)
+        .form-group
+          button.btn.btn-info(type='submit') Lưu thông tin 

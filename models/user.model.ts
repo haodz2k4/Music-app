@@ -5,6 +5,7 @@ const userSchema: Schema = new Schema({
         type: String,
         required: true
     },
+    avatar: String,
     description: String,
     email: String,
     birthDate: String,

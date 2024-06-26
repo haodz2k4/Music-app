@@ -1,0 +1,54 @@
+.sidebar
+  h2 Quảng trị 
+  ul.nav.flex-column
+    li.nav-item
+      a.nav-link(href='/admin/dashboard' class=`${activePages === 'dashboard' ? 'active' : ''}`)
+        i.fa-solid.fa-chart-simple
+        |  Dashboard
+    li.nav-item
+      a.nav-link(href='/admin/songs' class=`${activePages === 'songs' ? 'active' : ''}`)
+        i.fa-solid.fa-music
+        |  Bài hát  
+    li.nav-item
+      a.nav-link(href='/admin/topics' class=`${activePages === 'topics' ? 'active' : ''}`)
+        i.fa-solid.fa-list
+        |  Chủ đề 
+    li.nav-item
+      a.nav-link(href='/admin/singer' class=`${activePages === 'singer' ? 'active' : ''}`)
+        i.fa-solid.fa-guitar
+        |  Ca sĩ 
+    li.nav-item
+      a.nav-link(href='/admin/users' class=`${activePages === 'users' ? 'active' : ''}`)
+        i.fa-solid.fa-users
+        |  Người dùng  
+    li.nav-item
+      a.nav-link(href='../roles/roles.html' class=`${activePages === 'roles' ? 'active' : ''}`)
+        i.fa-solid.fa-lock
+        |  Nhóm quyền 
+    li.nav-item
+      a.nav-link(href='../permissions/permission.html')
+        i.fa-solid.fa-shield-halved
+        |  Ph&acirc;n quy&#x1EC1;n
+    li.nav-item
+      a.nav-link(href='../Accounts/account.html')
+        i.fa-solid.fa-user-lock
+        |  T&agrave;i kho&#x1EA3;n
+    li.nav-item
+      a.nav-link(href='#')
+        i.fa-solid.fa-gear
+        |  C&agrave;i &dstrok;&#x1EB7;t chung
+  .bottom-section(style='margin-top: 30px;')
+    hr
+    ul.nav.flex-column
+      li.nav-item
+        a.nav-link(href='../my-account/index.html')
+          i.fa-solid.fa-user
+          |  T&agrave;i kho&#x1EA3;n c&aacute; nh&acirc;n
+      li.nav-item
+        button.nav-link(btn-logout='')
+          i.fa-solid.fa-right-from-bracket
+          |  &Dstrok;&abreve;ng xu&#x1EA5;t
+      li.nav-item
+        a.nav-link(href='#')
+          i.fa-solid.fa-cogs
+          |  H&#x1EC7; th&#x1ED1;ng

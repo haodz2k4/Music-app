@@ -10,7 +10,7 @@ block main
           each item in newSongs
             .col-md-3.mb-4
               .card.h-100
-                a(href="detail/"+item.slug) 
+                a(href="/songs/detail/"+item.slug) 
                   img.card-img-top(src=item.avatar, alt='Bài hát 1')
                 .card-body  
                   h5.card-title #{item.title}

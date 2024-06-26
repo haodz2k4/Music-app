@@ -4,7 +4,10 @@ import { hash, compare } from "bcrypt";
 //require helper here
 import {generateString} from '../../helpers/generate.helper'
 //require model here
-import User from '../../models/user.model'
+import User from '../../models/user.model';
+import Like from '../../models/like.model';
+import Song from '../../models/song.model';
+import Singer from '../../models/singer.model';
 //[GET] "/user/login"
 export const login = (req: Request, res: Response): void =>{
     res.render("clients/pages/user/login.pug")
@@ -71,8 +74,39 @@ export const loginPost = async (req: Request, res: Response): Promise<void> => {
 //[GET] "/user/profiles"
 export const profiles = async (req: Request,res: Response): Promise<void>=>{
     
-   const infoUser = res.locals.infoUser;
-    res.render("clients/pages/user/profiles.pug",{
-        user: infoUser
+    const infoUser = res.locals.infoUser;
+    const likes = await Like.find({
+        userId: infoUser.id
     })
+    const listId = likes.map(item => item.songId);
+    const songs = await Song.find({
+        _id: {$in: listId}
+    })
+    for(const item of songs){
+        const singer = await Singer.findOne({_id: item.singerId}).select("fullName");
+        item.singerName = singer?.fullName;
+    }
+    res.render("clients/pages/user/profiles.pug",{
+        user: infoUser,
+        songs
+    })
+}
+//[GET] "/user/edit"
+export const edit = async (req: Request, res: Response) :Promise<void> =>{
+    res.render("clients/pages/user/edit.pug")
+}
+//[PATCH] "/user/edit"
+export const editPatch = async (req: Request, res: Response) :Promise<void> =>{
+    try {
+        console.log(req.body);
+        const id = res.locals.infoUser.id;
+        await User.updateOne({
+            _id: id
+        },req.body);
+        req.flash('success_msg','chỉnh sửa thành công');
+        res.redirect("/user/profiles");
+    } catch (error) {
+        req.flash('error_msg','chỉnh sửa thất bại');
+        res.redirect("back");
+    }
 }

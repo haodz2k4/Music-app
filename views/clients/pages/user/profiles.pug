@@ -1,13 +1,16 @@
 extends ../../layouts/default.pug 
-
+include ../../mixins/show-alert.pug 
 block main 
     .container.mt-5
       .row
+        +alertSuccess(success_msg)
+        +alertError(error_msg)
         .col-md-3
           .profile-card.text-center
             img.profile-avatar(src=`${user.avatar ? user.avatar : "/images/profile_3.png"}`,style='width: 200px; height: 200px', alt='Avatar')
-            h3.profile-name #{user.fullName}
-            p.profile-info Ng&#x1B0;&#x1EDD;i y&ecirc;u nh&#x1EA1;c, th&iacute;ch nghe nh&#x1EA1;c Pop v&agrave; Rock.
+            h3.profile-name #{user.fullName} 
+            a(href="/user/edit").btn.btn-primary Chỉnh sửa 
+            p.profile-info #{user.description}
             p.profile-email #{user.email}
             p.badge.text-bg-success #{user.status}
             p.profile-email Tham gia vào: #{moment(user.createdAt).subtract(10, 'days').calendar()} 
@@ -16,21 +19,14 @@ block main
           .song-list
             h2 B&agrave;i h&aacute;t &dstrok;&atilde; Like
             ul.list-group
+             each item in songs
               li.list-group-item
                 .song-item
-                  img.song-thumbnail(src='song1.jpg', alt='Song 1')
+                  img.song-thumbnail(src=item.avatar, alt='Song 1')
                   .song-details
-                    h5.song-title Shape of You
-                    p.song-artist Ed Sheeran
+                    h5.song-title #{item.title}
+                    p.song-artist #{item.singerName}
                     audio(controls='')
-                      source(src='shape_of_you.mp3', type='audio/mpeg')
+                      source(src=item.audio, type='audio/mpeg')
                                         
-              li.list-group-item
-                .song-item
-                  img.song-thumbnail(src='song2.jpg', alt='Song 2')
-                  .song-details
-                    h5.song-title Rolling in the Deep
-                    p.song-artist Adele
-                    audio(controls='')
-                      source(src='rolling_in_the_deep.mp3', type='audio/mpeg')
-                                        
+              

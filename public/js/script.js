@@ -268,3 +268,36 @@ if(limitSinger){
 
 ////end singers
 //end limit     
+
+//follow 
+const btnFollow = document.querySelectorAll("[btn-follow]");
+if(btnFollow.length > 0){
+    btnFollow.forEach((item) =>{
+        item.addEventListener("click", async () =>{
+            const option = {
+                method: "PATCH",
+                headers: {
+                    'Authorization': `Bearer ${getToken("userToken")}`
+                }
+            }
+            const status = item.getAttribute("follow-status");
+            const id = item.getAttribute("btn-follow");
+            
+            const url = `${Domain}/singer/follow/edit/${status}/${id}`;
+            console.log(url);
+            const response = await fetch(url, option);
+            
+            if(response.status === 401){
+                alert("Vui lòng đăng nhập để theo dõi")
+            }
+            if(response.ok){
+                const data = await response.json();
+                const followCount = item.closest(".card-body").querySelector("[follow-count]");
+                followCount.innerHTML = `${data.follows} người theo dõi`;
+                btnFollow.innerHTML = 'Đã theo dõi';
+            }
+        })
+    })
+}
+
+//end follow 

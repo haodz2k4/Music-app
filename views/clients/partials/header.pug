@@ -17,8 +17,11 @@ header.p-3.mb-3.border-bottom
           form(action="/search/result" method="GET").col-12.col-lg-auto.mb-3.mb-lg-0.me-lg-3
             input.form-control(type='search', placeholder='Tìm kiếm...',inp-search aria-label='Search' name='keyword' style='width: 250px' value=keyword) 
             #suggestions.suggestions
-          span #{infoUser.fullName ? infoUser.fullName : "Guest"}
+          span #{infoUser ? infoUser.fullName : "Guest"}
             .dropdown.text-end
-              a#dropdownUser1.d-block.link-dark.text-decoration-none.dropdown-toggle(href='/user/profiles', data-bs-toggle='dropdown', aria-expanded='false')
-                img.rounded-circle(src=`${infoUser.avatar ? infoUser.avatar : "/images/profile_3.png"}`, alt='mdo', width='32', height='32')
+              a#dropdownUser1.d-block.link-dark.text-decoration-none.dropdown-toggle(href='/user/profiles', data-bs-toggle='dropdown', aria-expanded='false') 
+               if (infoUser)
+                img.rounded-circle(src=`${infoUser.avatar ? infoUser.avatar : "/images/profile_3.png"}`, alt='mdo', width='32', height='32') 
+               else 
+                img.rounded-circle(src="/images/profile_3.png", alt='mdo', width='32', height='32')
               

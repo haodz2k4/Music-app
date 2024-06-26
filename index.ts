@@ -18,8 +18,15 @@ app.use(session({
 //require moment
 import moment from 'moment';
 app.locals.moment = moment;
-
-
+//end moment
+//method override
+import methodOverride from 'method-override';
+app.use(methodOverride('_method'));
+//end method override 
+//mce
+import path from 'path';
+/* New Route to the TinyMCE Node module */
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
 //end moment
 //cookie parser
 import cookieParser from 'cookie-parser';
@@ -37,8 +44,17 @@ config();
 //require clients router
 import clientRouter from './router/clients/index.router';
 clientRouter(app);
+//admin router
+import adminRouter from './router/admin/index.router';
+adminRouter(app);
 //end router 
+
 app.use(static_('public'));
+app.use("*",(req: express.Request, res: express.Response) =>{
+    res.render("clients/pages/errors/404.pug")
+    
+})
+
 const port: (string | undefined) = process.env.PORT
 app.listen(port,() =>{
     console.log("SERVER IS RUNNING ON PORT " + port)

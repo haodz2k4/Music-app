@@ -1,0 +1,19 @@
+extends ../../layouts/error.pug 
+
+
+block main 
+    #notfound
+      .notfound
+        .notfound-404
+          h1 404
+        | &#x9;&#x9;&#x9;
+        h2 Oops, Trang của bạn không được tìm thấy
+        | &#x9;&#x9;&#x9;
+        form.notfound-search
+          input(type='text', placeholder='Search...')
+          | &#x9;&#x9;&#x9;&#x9;
+          button(type='button') Search
+        | &#x9;&#x9;&#x9;
+        a(href='/')
+          span.arrow
+          | Trở về trang chủ 

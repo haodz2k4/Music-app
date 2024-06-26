@@ -1,0 +1,98 @@
+extends ../../layouts/default.pug 
+include ../../mixins/show-alert.pug 
+
+block main 
+        h1.text-center(style='margin: 20px; font-family: Arial, Helvetica, sans-serif;font-weight: 700') Bài hát 
+        .container
+          +alertSuccess(success_msg)
+          +alertError(error_msg)
+          .row.justify-content-between.tool-bar
+            // Search Bar
+            .col-md-4
+              h5 T&igrave;m ki&#x1EBF;m
+              form(form-search='')
+                .input-group
+                  input.form-control(type='text', placeholder='Tìm kiếm')
+                  button.btn.btn-outline-secondary(type='submit')
+                    i.fa-solid.fa-magnifying-glass
+            // Filter
+            .col-md-4
+              h5 B&#x1ED9; l&#x1ECD;c
+              .btn-group(role='group', aria-label='Filter')
+                button.btn.btn-outline-info.active(type='button', btn-filter-status='') T&#x1EA5;t c&#x1EA3;
+                button.btn.btn-outline-info(type='button', btn-filter-status='active')  Ho&#x1EA1;t &dstrok;&#x1ED9;ng
+                button.btn.btn-outline-info(type='button', btn-filter-status='inactive')  Kh&ocirc;ng ho&#x1EA1;t &dstrok;&#x1ED9;ng
+            // Select Option
+            .col-md-4
+              h5 Thay &dstrok;&#x1ED5;i nhi&#x1EC1;u s&#x1EA3;n ph&#x1EA9;m
+              form(form-change-multi='')
+                .d-flex.align-items-center
+                  select.form-select.custom-select.my-custom.me-2(name='changeMulti', style='width: auto; background-color: #3b7ec6; /* Màu xanh dương đậm */\
+                  color: white;\
+                  border: 1px solid #0056b3;\
+                  border-radius: 0.25rem;\
+                  padding: 0.375rem 1.75rem 0.375rem 0.75rem;', aria-label='Default select example')
+                    option(selected='') L&#x1EF1;a Ch&#x1ECD;n &#x1EDE; &Dstrok;&acirc;y
+                    option(value='status-active') Ho&#x1EA1;t &dstrok;&#x1ED9;ng
+                    option(value='status-inactive') Kh&ocirc;ng ho&#x1EA1;t &dstrok;&#x1ED9;ng
+                    option(value='position') Thay &dstrok;&#x1ED5;i v&#x1ECB; tr&iacute;
+                    option(value='deleted-true') X&oacute;a
+                  button.btn.btn-danger(type='submit') &Aacute;p d&#x1EE5;ng
+            // Add Button
+            .col-md-4
+              h5 Th&ecirc;m s&#x1EA3;n ph&#x1EA9;m
+              a.btn.btn-warning(href=`/${prefixAdmin}/songs/add`, style='background-color: #5a7ad3; color: white;')
+                i.fa-solid.fa-plus
+                |  Thêm
+            .col-md-4
+              h5 X&#x1EBF;p theo ti&ecirc;u ch&iacute;
+              select.form-select.custom-select(name='sorted', aria-label='Default select example')
+                option(selected='', value='') S&#x1EAF;p x&#x1EBF;p theo
+                option(value='title-asc') T&ecirc;n A-Z
+                option(value='title-desc') T&ecirc;n Z-A
+                option(value='price-asc') Gi&aacute; ti&#x1EC1;n Cao -&gt; th&#x1EA5;p
+                option(value='price-desc') Gi&aacute; ti&#x1EC1;n Th&#x1EA5;p -&gt; Cao
+                option(value='position-asc') V&#x1ECB; tr&iacute; cao -&gt; Th&#x1EA5;p
+                option(value='position-desc') V&#x1ECB; tr&iacute; Th&#x1EA5;p -&gt; Cao
+            // Additional Buttons
+            .col-md-4
+              h5 Th&ugrave;ng r&aacute;c
+              button.btn.btn-secondary.position-relative(type='button', btn-garbage='hide')
+                i.fa-solid.fa-trash 
+                |  Xem Th&ugrave;ng R&aacute;c
+                span.position-absolute.top-0.start-100.translate-middle.badge.rounded-pill.bg-danger(show-count-trash='')
+                  | 0
+                  span.visually-hidden   
+          
+        table.table(table-books='')
+            thead
+              tr
+                th
+                    input(type='checkbox', name='check-all', id='')
+                th #
+                th Tiêu đề 
+                th Ảnh 
+                th Lượt nghe 
+                th Trạng thái 
+                th Thao tác
+            tbody
+              each item, index in songs
+                tr 
+                    td 
+                      input(type='checkbox', name='check-multi', id='') 
+                    td #{index + 1}
+                    td #{item.title} 
+                    td 
+                      img(src=item.avatar, alt="", style='width: 100px; height: 100px')
+                    td
+                      strong #{item.listen}
+                    td 
+                      span(class=`${item.status === "active" ? 'badge rounded-pill text-bg-success' : 'badge rounded-pill text-bg-danger'}`) #{item.status}
+                    td 
+                      .btn-group(role='group', aria-label='Basic mixed styles example')
+                        button.btn.btn-secondary(type='button')
+                            i.fa-solid.fa-magnifying-glass  
+                        button.btn.btn-warning(type='button') 
+                            i.fa-solid.fa-pen-to-square
+                        button.btn.btn-danger(type='button') 
+                            i.fa-solid.fa-x

@@ -254,3 +254,87 @@ p {
   margin-top: 15px;
   padding: 10px 20px;
 }
+/* detail singer  */
+
+.artist-info {
+  margin-top: 20px;
+}
+
+.artist-info img {
+  max-width: 100%;
+  border-radius: 50%;
+}
+
+.artist-description {
+  margin-top: 20px;
+}
+
+.track-list {
+  margin-top: 20px;
+}
+
+.track-item {
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+/* end detail singer  */
+
+/* edit user  */ 
+.form-container {
+  background-color: #e6e7dc;
+  padding: 30px;
+  border-radius: 15px;
+  margin-left: 250px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+  max-width: 800px;
+  width: 80%;
+  margin-bottom: 10px;
+}
+.form-container h2 {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.form-group button {
+  margin-top: 20px;
+  width: 100%;
+}
+
+
+/* end edit user  */ 
+
+/* alert  */ 
+.alert {
+  padding: 20px;
+  background-color: #f44336; /* Red */
+  color: white;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  position: relative;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.d-none {
+  display: none;
+}
+.alert-success{
+  padding: 20px;
+  background-color: green; /* Red */
+  color: white;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  position: relative;
+}
+
+
+/* end alert  */
