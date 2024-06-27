@@ -35,7 +35,6 @@ block main
                     option(selected='') Lựa chọn 
                     option(value='active') Hoạt động 
                     option(value='inactive') Không hoạt động 
-                    option(value='position') Thay đổi vị trí 
                     option(value='deleted') Xóa 
                   button.btn.btn-danger(type='submit') Áp dụng 
             // Add Button
@@ -50,10 +49,8 @@ block main
                 option(selected='', value='') S&#x1EAF;p x&#x1EBF;p theo
                 option(value='title-asc') T&ecirc;n A-Z
                 option(value='title-desc') T&ecirc;n Z-A
-                option(value='price-asc') Gi&aacute; ti&#x1EC1;n Cao -&gt; th&#x1EA5;p
-                option(value='price-desc') Gi&aacute; ti&#x1EC1;n Th&#x1EA5;p -&gt; Cao
-                option(value='position-asc') V&#x1ECB; tr&iacute; cao -&gt; Th&#x1EA5;p
-                option(value='position-desc') V&#x1ECB; tr&iacute; Th&#x1EA5;p -&gt; Cao
+                option(value='listen-asc') Lượt nghe Thấp -> Cao 
+                option(value='listen-desc') Lượt nghe cao -> thấp  
             // Additional Buttons
             .col-md-4
               h5 Th&ugrave;ng r&aacute;c
@@ -73,6 +70,7 @@ block main
                 th Tiêu đề 
                 th Ảnh 
                 th Lượt nghe 
+                th Lượt Thích  
                 th Trạng thái 
                 th Thao tác
             tbody
@@ -85,7 +83,9 @@ block main
                     td 
                       img(src=item.avatar, alt="", style='width: 100px; height: 100px')
                     td
-                      strong #{item.listen}
+                      strong #{item.listen} 
+                    td 
+                      strong #{item.countLikes}
                     td 
                       span(class=`${item.status === "active" ? 'badge rounded-pill text-bg-success' : 'badge rounded-pill text-bg-danger'}`) #{item.status}
                     td 

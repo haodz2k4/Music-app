@@ -19,6 +19,7 @@ const songSchema: Schema = new Schema({
 
     },
     slug: String,
+    likes: Number,
     deleted: {
         type: Boolean,
         default: false

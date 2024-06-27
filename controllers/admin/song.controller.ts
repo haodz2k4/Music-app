@@ -1,49 +1,64 @@
-
 import { Request, Response } from "express";
-
 //require model here
 import Song from '../../models/song.model';
 import Topic from '../../models/topics.model';
 import Singer from '../../models/singer.model';
+import Like from '../../models/like.model';
 //require helper here
 import { btnStatus } from "../../helpers/status.helper";
+import { listSort } from "../../helpers/sort.helper";
 //[GET] "/admin/songs"
-export const index = async (req: Request, res: Response) :Promise<void> =>{
-
+export const index = async (req: Request, res: Response): Promise<void> => {
     interface Find {
-        deleted: boolean,
-        status?: string,
-        title?: RegExp
+        deleted: boolean;
+        status?: string;
+        title?: RegExp;
     }
     //search
     const Find: Find = {
         deleted: false,
-    }
+    };
     const keyword = req.query.keyword;
-    if(typeof keyword === 'string'){
+    if (typeof keyword === 'string') {
         const regrex: RegExp = new RegExp(keyword);
-        Find.title = regrex
+        Find.title = regrex;
     }
-    //end search 
-    //filter
+    //end search
+
+    // filter 
     const listBtn = btnStatus(req);
     const status = req.query.status;
-    const validStatus = ["active","inactive"];
-    if(typeof status === 'string' && validStatus.includes(status)){
+    const validStatus = ["active", "inactive"];
+    if (typeof status === 'string' && validStatus.includes(status)) {
         Find.status = status;
-    }else{
-        req.flash('error_msg','trạng thái không hợp lệ')
+    } else {
+        req.flash('error_msg', 'trạng thái không hợp lệ');
     }
     //end filter 
-    const songs = await Song.find(Find)
-    res.render("admin/pages/song/index.pug",{
+
+    // sort 
+    const validKeysort: string[] = ['title', 'listen', 'date']
+    const sort = listSort(req, validKeysort);
+    // end sort 
+
+    const songs = await Song.find(Find).sort(sort);
+    //add filed likes 
+    for(const item of songs){
+        item.likes = await Like.countDocuments({
+            songId: item.id
+        })
+        
+    }
+    
+    res.render("admin/pages/song/index.pug", {
         activePages: 'songs',
         keyword,
         pageTitle: 'Quản lý bài hát',
         songs,
-        listBtn
-    })
-}
+        listBtn,
+    });
+};
+
 //[GET] "/admin/songs/add"
 export const add = async (req: Request, res: Response) :Promise<void> =>{
     
@@ -104,6 +119,8 @@ export const changeMulti = async (req: Request, res: Response) :Promise<void>  =
             })
             req.flash('success_msg','Xóa các sản phẩm thành công')
             break;
+        default:
+            req.flash('error_msg','Trạng thái không hợp lệ')
 
     }
     res.redirect("back");

@@ -78,6 +78,24 @@ if(formChangeMulti){
 
     })
 }
-
-
 //end change multi 
+
+//sorted 
+const selectSorted = document.querySelector("select[name='sorted']");
+if(selectSorted){
+    selectSorted.addEventListener("change",() =>{
+        const value = selectSorted.value;
+        const [sortKey, sortValue] = value.split("-");
+        if(sortKey && sortValue){
+            url.searchParams.set("sortKey", sortKey);
+            url.searchParams.set("sortValue", sortValue);
+
+        }else{
+            url.searchParams.delete("sortKey");
+            url.searchParams.delete("sortValue")
+        }
+        window.location.href = url.href;
+    })
+}
+
+//end sorted 
