@@ -9,9 +9,13 @@ const uploadFields = upload.fields([
     { name: 'avatar', maxCount: 1 },
     { name: 'audio', maxCount: 1 }
   ]);
+//require middleware here
+import * as validate from '../../validates/admin/song.validate';
 router.get("/", controller.index);
 router.get("/add",controller.add);
-router.post("/add",uploadFields,uploadFile,controller.addPost);
+router.post("/add",validate.createSong,uploadFields,uploadFile,controller.addPost);
 router.patch("/change-multi",controller.changeMulti);
 router.get("/detail/:id",controller.detail);
+router.get("/edit/:id",controller.edit);
+router.patch("/edit/:id",validate.editSong,uploadFields,uploadFile,controller.editPatch);
 export default router;

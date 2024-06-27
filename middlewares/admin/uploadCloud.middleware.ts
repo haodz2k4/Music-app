@@ -24,7 +24,8 @@ const streamUpload = (buffer: Buffer): Promise<UploadApiResponse> => {
 
 export const uploadFile = async (req: Request, res: Response, next: NextFunction) => {
   if (!req.files || Object.keys(req.files).length === 0) {
-    return res.status(400).json({ message: "Không có file upload" });
+    next();
+    return;
   }
 
   try {

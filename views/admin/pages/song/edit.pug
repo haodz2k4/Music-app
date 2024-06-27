@@ -1,0 +1,66 @@
+extends ../../layouts/default.pug 
+
+block main 
+    .container.mt-5
+      .form-container.card
+        .card-body
+          h2.card-title.mb-4.text-center  Chỉnh sửa 
+          form(action=`/admin/songs/edit/${song.id}?_method=PATCH`  method="POST" enctype="multipart/form-data")
+            // Title
+            .form-group
+              label(for='title') Title
+              input#title.form-control(type='text', name='title', required='', value=song.title)
+            // Avatar
+            .form-group
+              label(for='avatar') Avatar
+              input#avatar.form-control(type='file', name='avatar')
+              img(src=song.avatar, alt="" style='width:120px; height: 120px')
+            // Description
+            .form-group
+              label(for='description') Description
+              textarea#description.form-control(name='description', rows='3', ) #{song.description} 
+              
+            // Singer ID
+            .form-group
+              label(for='singerId') Singer
+              select#singerId.form-control(name='singerId')
+                option(value='') Chọn một ca sĩ  
+                each item in singers 
+                    option(value=item.id selected=(item.id === song.singerId ? true : false)) #{item.fullName}
+                // Add more options as needed
+            // Topic ID
+            .form-group
+              label(for='topicId') Topic
+              select#topicId.form-control(name='topicId')
+                option(value='' select) Chọn một topic 
+                each item in topics  
+                  option(value=item.id selected=(item.id === song.topicId ? true : false)) #{item.title}
+                 
+                // Add more options as needed
+            // Lyrics
+            .form-group
+              label(for='lyrics') Lyrics
+              textarea#lyrics.form-control(name='lyrics', rows='5') !{song.lyrics}
+            // Audio
+            .form-group
+              label(for='audio') Audio
+              input#audio.form-control(type='file', name='audio') 
+              audio(controls='')
+                source(src=song.audio, type='audio/mpeg')
+            // Listen
+            .form-group
+              label(for='listen') Listen Count
+              input#listen.form-control(type='number', name='listen', value=song.listen, min='0')
+            // Status
+            .form-group
+              label Status
+              .form-check
+                input#statusActive.form-check-input(type='radio', name='status', value='active', checked=(song.status === 'active' ? true : false))
+                label.form-check-label(for='statusActive')
+                  | Active
+              .form-check
+                input#statusInactive.form-check-input(type='radio', name='status', value='inactive'  checked=(song.status === 'inactive' ? true : false))
+                label.form-check-label(for='statusInactive')
+                  | Inactive
+            // Submit Button
+            button.btn.btn-primary.btn-block(type='submit') Submit

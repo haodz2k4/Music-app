@@ -150,3 +150,50 @@ export const detail = async (req: Request, res: Response) :Promise<void> =>{
         res.render("clients/pages/errors/500.pug")
     }
 }
+//[GET] "/admin/songs/edit/:id"
+export const edit = async (req: Request, res: Response) : Promise<void>  =>{
+    try {
+        const id = req.params.id;
+        const song = await Song.findOne({
+            _id: id
+        })
+        const singers = await Singer.find({
+            deleted: false,
+            status: "active"
+        })
+        const topics = await Topic.find({
+            deleted: false,
+            status: "active"
+        })
+        if(!song){
+            res.render("clients/pages/errors/404.pug");
+            return;
+        }
+        res.render("admin/pages/song/edit.pug",{
+            song,
+            singers,
+            topics,
+            activePages: 'songs'
+
+        })
+    } catch (error) {
+        console.error(error);
+        res.render("clients/pages/errors/500.pug")
+    }
+}
+//[PATCH] "/admin/songs/edit/:id"
+export const editPatch = async (req: Request, res: Response) :Promise<void>  =>{
+
+    try {
+        const id = req.params.id;
+        const body = req.body;
+        await Song.updateOne({
+            _id: id
+        }, body)
+    
+        res.redirect("/admin/songs");
+    } catch (error) {
+        console.error(error);
+        res.redirect("clients/pages/errors/500.pug")
+    }
+}
