@@ -24,19 +24,20 @@ block main
             // Select Option
             .col-md-4
               h5 Thay &dstrok;&#x1ED5;i nhi&#x1EC1;u s&#x1EA3;n ph&#x1EA9;m
-              form(form-change-multi='')
+              form(form-change-multi action="/admin/songs/change-multi?_method=PATCH" method="POST")
+                input(type="text", name="ids",).d-none 
                 .d-flex.align-items-center
-                  select.form-select.custom-select.my-custom.me-2(name='changeMulti', style='width: auto; background-color: #3b7ec6; /* Màu xanh dương đậm */\
+                  select.form-select.custom-select.my-custom.me-2(name='status', style='width: auto; background-color: #3b7ec6; /* Màu xanh dương đậm */\
                   color: white;\
                   border: 1px solid #0056b3;\
                   border-radius: 0.25rem;\
                   padding: 0.375rem 1.75rem 0.375rem 0.75rem;', aria-label='Default select example')
-                    option(selected='') L&#x1EF1;a Ch&#x1ECD;n &#x1EDE; &Dstrok;&acirc;y
-                    option(value='status-active') Ho&#x1EA1;t &dstrok;&#x1ED9;ng
-                    option(value='status-inactive') Kh&ocirc;ng ho&#x1EA1;t &dstrok;&#x1ED9;ng
-                    option(value='position') Thay &dstrok;&#x1ED5;i v&#x1ECB; tr&iacute;
-                    option(value='deleted-true') X&oacute;a
-                  button.btn.btn-danger(type='submit') &Aacute;p d&#x1EE5;ng
+                    option(selected='') Lựa chọn 
+                    option(value='active') Hoạt động 
+                    option(value='inactive') Không hoạt động 
+                    option(value='position') Thay đổi vị trí 
+                    option(value='deleted') Xóa 
+                  button.btn.btn-danger(type='submit') Áp dụng 
             // Add Button
             .col-md-4
               h5 Th&ecirc;m s&#x1EA3;n ph&#x1EA9;m
@@ -63,7 +64,7 @@ block main
                   | 0
                   span.visually-hidden   
           
-        table.table(table-books='')
+        table.table
             thead
               tr
                 th
@@ -78,7 +79,7 @@ block main
               each item, index in songs
                 tr 
                     td 
-                      input(type='checkbox', name='check-multi', id='') 
+                      input(type='checkbox', name='ids', id='' value=item.id) 
                     td #{index + 1}
                     td #{item.title} 
                     td 

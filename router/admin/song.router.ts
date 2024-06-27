@@ -11,5 +11,6 @@ const uploadFields = upload.fields([
   ]);
 router.get("/", controller.index);
 router.get("/add",controller.add);
-router.post("/add",uploadFields,uploadFile,controller.addPost)
+router.post("/add",uploadFields,uploadFile,controller.addPost);
+router.patch("/change-multi",controller.changeMulti);
 export default router;

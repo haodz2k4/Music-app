@@ -33,3 +33,51 @@ if(btnFilterStatus.length > 0){
     })
 }
 //end filter 
+//handle checked
+const table = document.querySelector("table");
+if(table){
+    const checkAll = table.querySelector("thead tr th input[name='check-all']");
+    const checkMulti = table.querySelectorAll("tbody tr td input[name='ids']");
+    checkAll.addEventListener("click",() =>{
+        if(checkAll.checked === true){
+            for(const item of checkMulti){
+                item.checked = true
+            }
+        }else{
+            for(const item of checkMulti){
+                item.checked = false
+            }
+        }
+    })
+    checkMulti.forEach((item) => {
+        item.addEventListener("click",() =>{
+            const countChecked = table.querySelectorAll("tbody tr td input[name='ids']:checked").length;
+            const lengthChecked = checkMulti.length;
+            if(countChecked === lengthChecked){
+                checkAll.checked = true
+            }
+        })
+    })
+}
+
+//end checked
+//change multi 
+const formChangeMulti = document.querySelector("[form-change-multi]");
+if(formChangeMulti){
+    formChangeMulti.addEventListener("submit",(e) =>{
+        e.preventDefault();
+        const inpIds = formChangeMulti.querySelector("input[name='ids']");
+
+        const checkMulti = table.querySelectorAll("tbody tr td input[name='ids']:checked");
+        const listId = [];
+        for(const item of checkMulti){
+            listId.push(item.value);
+        }
+        inpIds.value = listId.join("-");
+        formChangeMulti.submit();
+
+    })
+}
+
+
+//end change multi 

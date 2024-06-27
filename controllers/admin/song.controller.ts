@@ -1,3 +1,4 @@
+
 import { Request, Response } from "express";
 
 //require model here
@@ -6,18 +7,17 @@ import Topic from '../../models/topics.model';
 import Singer from '../../models/singer.model';
 //require helper here
 import { btnStatus } from "../../helpers/status.helper";
-//[GET] "/admin/song"
+//[GET] "/admin/songs"
 export const index = async (req: Request, res: Response) :Promise<void> =>{
 
     interface Find {
         deleted: boolean,
-        status: string,
+        status?: string,
         title?: RegExp
     }
     //search
     const Find: Find = {
         deleted: false,
-        status: "active"
     }
     const keyword = req.query.keyword;
     if(typeof keyword === 'string'){
@@ -44,7 +44,7 @@ export const index = async (req: Request, res: Response) :Promise<void> =>{
         listBtn
     })
 }
-//[GET] "/admin/song/add"
+//[GET] "/admin/songs/add"
 export const add = async (req: Request, res: Response) :Promise<void> =>{
     
     const topics = await Topic.find({
@@ -63,7 +63,7 @@ export const add = async (req: Request, res: Response) :Promise<void> =>{
         singers: singers
     });
 }
-//[POST] "/admin/song/add
+//[POST] "/admin/songs/add
 export const addPost = async (req: Request, res: Response) :Promise<void>  =>{
 
     try {
@@ -74,4 +74,37 @@ export const addPost = async (req: Request, res: Response) :Promise<void>  =>{
     } catch (error) {
         res.render("")
     }
+}
+//[PATCH] "/admin/songs/change-multi"
+export const changeMulti = async (req: Request, res: Response) :Promise<void>  =>{
+    const status = req.body.status;
+    const ids = req.body.ids.split("-");
+    switch(status) {
+        case "active": 
+            await Song.updateMany({
+                _id: {$in: ids}
+            },{
+                status: status
+            }) 
+            req.flash('success_msg','Cập nhật trạng thái thành công') 
+            break;
+        case "inactive":
+            await Song.updateMany({
+                _id: {$in: ids}
+            },{
+                status: status
+            })
+            req.flash('success_msg','Cập nhật trạng thái thành công') 
+            break;
+        case "delete":
+            await Song.updateMany({
+                _id: {$in: ids}
+            },{
+                deleted: true
+            })
+            req.flash('success_msg','Xóa các sản phẩm thành công')
+            break;
+
+    }
+    res.redirect("back");
 }
