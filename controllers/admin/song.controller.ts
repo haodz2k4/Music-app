@@ -4,6 +4,8 @@ import { Request, Response } from "express";
 import Song from '../../models/song.model';
 import Topic from '../../models/topics.model';
 import Singer from '../../models/singer.model';
+//require helper here
+import { btnStatus } from "../../helpers/status.helper";
 //[GET] "/admin/song"
 export const index = async (req: Request, res: Response) :Promise<void> =>{
 
@@ -12,6 +14,7 @@ export const index = async (req: Request, res: Response) :Promise<void> =>{
         status: string,
         title?: RegExp
     }
+    //search
     const Find: Find = {
         deleted: false,
         status: "active"
@@ -21,11 +24,24 @@ export const index = async (req: Request, res: Response) :Promise<void> =>{
         const regrex: RegExp = new RegExp(keyword);
         Find.title = regrex
     }
+    //end search 
+    //filter
+    const listBtn = btnStatus(req);
+    const status = req.query.status;
+    const validStatus = ["active","inactive"];
+    if(typeof status === 'string' && validStatus.includes(status)){
+        Find.status = status;
+    }else{
+        req.flash('error_msg','trạng thái không hợp lệ')
+    }
+    //end filter 
     const songs = await Song.find(Find)
     res.render("admin/pages/song/index.pug",{
         activePages: 'songs',
+        keyword,
         pageTitle: 'Quản lý bài hát',
-        songs: songs
+        songs,
+        listBtn
     })
 }
 //[GET] "/admin/song/add"
