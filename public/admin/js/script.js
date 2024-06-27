@@ -99,3 +99,13 @@ if(selectSorted){
 }
 
 //end sorted 
+
+//show garbage 
+const btnGarbage = document.querySelector("btn-garbage");
+if(btnGarbage){
+    btnGarbage.addEventListener("click",() =>{
+        url.searchParams.set("garbage","show");
+    })
+}
+
+//end show garbage

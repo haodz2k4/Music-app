@@ -1,0 +1,24 @@
+extends ../../layouts/default.pug 
+
+block main 
+    .container.mt-5
+      .card
+        img.card-img-top(src=song.avatar, alt='Song Avatar')
+        .card-body
+          h5.card-title #{song.title}
+          p.card-text
+            | Singer: 
+            a(href='#') #{song.singerName}
+          p.card-text
+            | Topic: 
+            a(href='#') #{song.topicTitle}
+          p.card-text Mô tả: #{song.title}
+          p.card-text 
+            strong Lời bài hát 
+            p !{song.lyrics}
+          p.card-text Listen Count: #{song.listen}
+          p.card-text Likes: #{song.likeCount}
+          p.card-text Status: #{song.status}
+          audio(controls='')
+            source(src=song.audio, type='audio/mpeg')
+          

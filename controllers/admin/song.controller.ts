@@ -111,7 +111,7 @@ export const changeMulti = async (req: Request, res: Response) :Promise<void>  =
             })
             req.flash('success_msg','Cập nhật trạng thái thành công') 
             break;
-        case "delete":
+        case "deleted":
             await Song.updateMany({
                 _id: {$in: ids}
             },{
@@ -124,4 +124,29 @@ export const changeMulti = async (req: Request, res: Response) :Promise<void>  =
 
     }
     res.redirect("back");
+}
+//[GET] "/admin/songs/detail/:id"
+export const detail = async (req: Request, res: Response) :Promise<void> =>{
+
+    try {
+        const id = req.params.id;
+        const song = await Song.findById(id);
+        if(!song){
+            res.render("clients/pages/errors/404.pug");
+            return;
+        }
+        const singer = await Singer.findById(song.singerId).select("fullName");
+        const topic = await Topic.findById(song.topicId).select("title");
+        song.likeCount = await Like.countDocuments({songId: song.id})
+        song.singerName = singer?.fullName;
+        song.topicTitle = topic?.title;
+        
+        res.render("admin/pages/song/detail.pug",{
+            activePages: 'songs',
+            song
+        });
+    } catch (error) {
+        console.error(error);
+        res.render("clients/pages/errors/500.pug")
+    }
 }
