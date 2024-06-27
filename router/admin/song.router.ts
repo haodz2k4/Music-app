@@ -18,4 +18,5 @@ router.patch("/change-multi",controller.changeMulti);
 router.get("/detail/:id",controller.detail);
 router.get("/edit/:id",controller.edit);
 router.patch("/edit/:id",validate.editSong,uploadFields,uploadFile,controller.editPatch);
+router.patch("/deleted/:id",controller.deleted)
 export default router;

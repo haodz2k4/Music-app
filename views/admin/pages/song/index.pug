@@ -94,5 +94,7 @@ block main
                             i.fa-solid.fa-magnifying-glass
                         a(href="songs/edit/"+item.id).btn.btn-warning
                             i.fa-solid.fa-pen-to-square
-                        a.btn.btn-danger
-                            i.fa-solid.fa-x
+                        a.btn.btn-danger(btn-deleted=item.id)
+                            i.fa-solid.fa-x 
+
+        form( method="POST" form-deleted path=`/${prefixAdmin}/songs/deleted`) 

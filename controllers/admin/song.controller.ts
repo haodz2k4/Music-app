@@ -197,3 +197,21 @@ export const editPatch = async (req: Request, res: Response) :Promise<void>  =>{
         res.redirect("clients/pages/errors/500.pug")
     }
 }
+//[PATCH] "/admin/songs/deleted/:id" (api)
+export const deleted = async (req: Request, res: Response) :Promise<void> =>{
+    try {
+        const id = req.params.id;
+        
+        await Song.updateOne({
+            _id: id
+        },{
+            deleted: true
+        })
+    
+        res.status(200).json({success: true, message: "Xóa thành công"});
+    } catch (error) {
+        console.error(error);
+        res.status(400).json({success: false, message: "Xóa thất bại"});
+    }
+    
+}

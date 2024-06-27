@@ -1,4 +1,5 @@
 const url = new URL(window.location.href);
+const prefixAdmin = "admin";
 //handle keyword
 const formSearch = document.querySelector("[form-search]");
 if(formSearch){
@@ -107,5 +108,31 @@ if(btnGarbage){
         url.searchParams.set("garbage","show");
     })
 }
-
 //end show garbage
+//btn delete
+const btnDeleted = document.querySelectorAll("[btn-deleted]");
+if(btnDeleted.length > 0){
+    btnDeleted.forEach((item) =>{
+        item.addEventListener("click",async () =>{
+            const isConfim = confirm("bạn có muốn xóa sản phẩm này không");
+            if(!isConfim){
+                return;
+            }
+            const id = item.getAttribute("btn-deleted");
+            const option = {
+                method: "PATCH"
+            }
+            //validate prefix admin
+            const url = `/${prefixAdmin}/songs/deleted/${id}`;
+            const response = await fetch(url, option);
+            const data = await response.json();
+            if(data.success){
+                alert("Xóa sản phẩm thành công");
+                const tr = item.closest("tr");
+                tr.classList.add("d-none")
+            }
+
+        })
+    })
+    
+}
