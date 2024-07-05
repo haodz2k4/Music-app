@@ -2,7 +2,8 @@ extends ../../layouts/default.pug
 include ../../mixins/show-alert.pug 
 
 block main 
-        h1.text-center(style='margin: 20px; font-family: Arial, Helvetica, sans-serif;font-weight: 700') Bài hát 
+
+        h1.text-center(style='margin: 20px; font-family: Arial, Helvetica, sans-serif;font-weight: 700') Quản lý nhóm quyền 
         .container
           +alertSuccess(success_msg)
           +alertError(error_msg)
@@ -61,40 +62,18 @@ block main
                   | 0
                   span.visually-hidden   
           
-        table.table
-            thead
-              tr
-                th
-                    input(type='checkbox', name='check-all', id='')
-                th #
-                th Tiêu đề 
-                th Ảnh 
-                th Lượt nghe 
-                th Lượt Thích  
-                th Trạng thái 
-                th Thao tác
-            tbody
-              each item, index in songs
-                tr 
-                    td 
-                      input(type='checkbox', name='ids', id='' value=item.id) 
-                    td #{index + 1}
-                    td #{item.title} 
-                    td 
-                      img(src=item.avatar, alt="", style='width: 100px; height: 100px')
-                    td
-                      strong #{item.listen} 
-                    td 
-                      strong #{item.likes}
-                    td 
-                      span(class=`${item.status === "active" ? 'badge rounded-pill text-bg-success' : 'badge rounded-pill text-bg-danger'}` btn-change-status=item.id status=item.status) #{item.status}
-                    td 
-                      .btn-group(role='group', aria-label='Basic mixed styles example')
-                        a(href=`/${prefixAdmin}/songs/detail/`+item.id).btn.btn-secondary
-                            i.fa-solid.fa-magnifying-glass
-                        a(href=`/${prefixAdmin}/songs/edit/`+item.id).btn.btn-warning
-                            i.fa-solid.fa-pen-to-square
-                        a.btn.btn-danger(btn-deleted=item.id)
-                            i.fa-solid.fa-x 
-
-        div(path-deleted=`/${prefixAdmin}/songs/deleted`    path-change-status=`/${prefixAdmin}/songs/change-status`).d-none
+        .container.mt-5
+          .row
+             each item in roles
+              .col-md-4
+                .card.mb-4
+                  .card-body
+                    h5.title-roles #{item.title}
+                    p.card-text
+                        | #{item.description} 
+                        br 
+                        | Status: 
+                        span(class=`status-dot ${item.status === 'active' ? 'status-active' : 'status-inactive'}`)
+                    a.btn.btn-primary(href='#') Chỉnh sửa 
+                    a.btn.btn-danger(href='#') Xóa 
+              

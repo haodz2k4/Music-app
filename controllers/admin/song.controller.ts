@@ -215,3 +215,18 @@ export const deleted = async (req: Request, res: Response) :Promise<void> =>{
     }
     
 }
+//[PATCH] "/admin/songs/change-status/:status/:id"
+export const changeStatus = async (req: Request, res: Response) :Promise<void>  =>{
+    const status = req.params.status;
+    const id = req.params.id;
+    try {
+        await Song.updateOne({
+            _id: id
+        }, {
+            status: status
+        })
+        res.status(200).json({success: true, message: "Cập nhật thành công", status: status})
+    } catch (error) {
+        res.status(400).json({success: false, message: "Cập nhật thất bại"});
+    }
+}

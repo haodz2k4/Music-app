@@ -1,5 +1,5 @@
 const url = new URL(window.location.href);
-const prefixAdmin = "admin";
+
 //handle keyword
 const formSearch = document.querySelector("[form-search]");
 if(formSearch){
@@ -123,8 +123,10 @@ if(btnDeleted.length > 0){
                 method: "PATCH"
             }
             //validate prefix admin
-            const url = `/${prefixAdmin}/songs/deleted/${id}`;
-            const response = await fetch(url, option);
+            const pathDeleted = document.querySelector("[path-deleted]");
+            const valuePathDeleted = pathDeleted.getAttribute("path-deleted");
+            const path = `${valuePathDeleted}/${id}`
+            const response = await fetch(path, option);
             const data = await response.json();
             if(data.success){
                 alert("Xóa sản phẩm thành công");
@@ -136,3 +138,52 @@ if(btnDeleted.length > 0){
     })
     
 }
+//end deleted 
+
+//change status
+const btnChangeStatus = document.querySelectorAll("[btn-change-status]");
+if(btnChangeStatus.length > 0){
+    btnChangeStatus.forEach((item) =>{
+        item.addEventListener("click",async () =>{
+            const id = item.getAttribute("btn-change-status");
+            let status = item.getAttribute("status");
+            if(status === "active"){
+                status = "inactive"
+            }else{
+                status = "active"
+            }
+            const path = document.querySelector("[path-change-status]").getAttribute("path-change-status");
+
+            const updatePath = `${path}/${status}/${id}`;
+            const action = {
+                method: "PATCH"
+            }
+            const response = await fetch(updatePath,action);
+            const data = await response.json();
+            if(data.success){
+                item.innerHTML = data.status;
+                if(data.status === "active"){
+                    item.classList.remove("badge","rounded-pill","text-bg-danger");
+                    item.classList.add("badge","rounded-pill","text-bg-success");
+                    item.setAttribute("status",data.status)
+
+                }else{
+                    item.classList.remove("badge","rounded-pill","text-bg-success");
+                    item.classList.add("badge","rounded-pill", "text-bg-danger");
+                    item.setAttribute("status",data.status)
+                }
+            }else{
+                alert("Cập nhật trạng thái thất bại")
+            }
+
+
+
+        })
+    })
+}
+
+//change status 
+
+
+
+

@@ -2,11 +2,11 @@
   h2 Quảng trị 
   ul.nav.flex-column
     li.nav-item
-      a.nav-link(href='/admin/dashboard' class=`${activePages === 'dashboard' ? 'active' : ''}`)
+      a.nav-link(href=`/${prefixAdmin}/dashboard` class=`${activePages === 'dashboard' ? 'active' : ''}`)
         i.fa-solid.fa-chart-simple
         |  Dashboard
     li.nav-item
-      a.nav-link(href='/admin/songs' class=`${activePages === 'songs' ? 'active' : ''}`)
+      a.nav-link(href=`/${prefixAdmin}/songs` class=`${activePages === 'songs' ? 'active' : ''}`)
         i.fa-solid.fa-music
         |  Bài hát  
     li.nav-item
@@ -22,7 +22,7 @@
         i.fa-solid.fa-users
         |  Người dùng  
     li.nav-item
-      a.nav-link(href='../roles/roles.html' class=`${activePages === 'roles' ? 'active' : ''}`)
+      a.nav-link(href=`/${prefixAdmin}/roles` class=`${activePages === 'roles' ? 'active' : ''}`)
         i.fa-solid.fa-lock
         |  Nhóm quyền 
     li.nav-item
