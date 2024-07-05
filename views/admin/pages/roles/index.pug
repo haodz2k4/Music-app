@@ -41,7 +41,7 @@ block main
             // Add Button
             .col-md-4
               h5 Th&ecirc;m s&#x1EA3;n ph&#x1EA9;m
-              a.btn.btn-warning(href=`/${prefixAdmin}/songs/add`, style='background-color: #5a7ad3; color: white;')
+              a.btn.btn-warning(href=`/${prefixAdmin}/roles/add`, style='background-color: #5a7ad3; color: white;')
                 i.fa-solid.fa-plus
                 |  Thêm
             .col-md-4
@@ -70,10 +70,10 @@ block main
                   .card-body
                     h5.title-roles #{item.title}
                     p.card-text
-                        | #{item.description} 
-                        br 
-                        | Status: 
-                        span(class=`status-dot ${item.status === 'active' ? 'status-active' : 'status-inactive'}`)
+                        | !{item.description} 
+                        strong 
+                          | #{item.status}: 
+                          span(class=`status-dot ${item.status === 'active' ? 'status-active' : 'status-inactive'}`)
                     a.btn.btn-primary(href='#') Chỉnh sửa 
                     a.btn.btn-danger(href='#') Xóa 
               

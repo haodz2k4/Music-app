@@ -1,0 +1,19 @@
+extends ../../layouts/default.pug 
+
+block main  
+    .container.mt-5
+      .row.justify-content-center
+        .col-md-6(style='width: 1000px')
+          .card.shadow-sm
+            .card-header.text-center
+              h4 Thêm mới nhóm quyền 
+            .card-body
+              form(method="POST")
+                .mb-3
+                  label.form-label(for='productTitle') Tiêu đề 
+                  input#productTitle.form-control(type='text', placeholder='Nhập tiêu đề ở đây', name='title')
+                .mb-3
+                  label.form-label(for='productDescription') Mô tả 
+                  textarea#productDescription.form-control(rows='4', placeholder='Nhập mô tả ở đây', name='description')
+                .d-grid
+                  button.btn.btn-secondary(type='submit') Thêm nhóm quyền 
