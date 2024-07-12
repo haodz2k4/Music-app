@@ -49,3 +49,24 @@ export const permission = async (req: Request, res: Response) :Promise<void>  =>
         roles
     });
 }
+//[PATCH] "/admin/roles/permissions"
+export const permissionPatch = async (req: Request, res: Response) :Promise<void>  =>{
+    
+    const roles = req.body.roles;
+    try {
+        for(const item of roles){
+            const {id, permissions} = item;
+            await Role.updateOne({
+                _id: id
+            },{
+                permissions: permissions
+            })
+        }
+        res.status(200).json({success: true, message: "Cập nhật phân quyền thành công"});
+    } catch (error) {
+        console.error(error);
+        res.status(400).json({success: false, message: "Cập nhật phân quyền thất bại"})
+        
+    }
+    
+}

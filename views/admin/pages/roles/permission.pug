@@ -20,7 +20,7 @@ block main
             // Select Option
             .col-md-4
               h5 Cập nhật 
-              button.btn.btn-secondary Cập nhật  
+              button.btn.btn-secondary(btn-updated-permission) Cập nhật  
     div(data-roles=roles).d-none
     table.table.table.table-bordered.border-danger(table-permission)
       thead
@@ -29,200 +29,38 @@ block main
           each item in roles
             th #{item.title}
       tbody
-        //data-records
+        //id 
+        tr.d-none(data-name='id')
+          td Id
+          each item in roles 
+            td
+              input(type='text'  value=item.id)
+       
+        //end id
         //songs 
         tr.category-row
           td(colspan=roles.length + 1 style='background-color: #B8B8B8') Danh sách bài hát
-        tr
+        tr(data-name='song_view')
           td Xem
           each item in roles 
-            td(data-name='song_view')
+            td
               input(type='checkbox'  value=item.id)
-        tr
+        tr(data-name='song_create')
           td Thêm 
           each item in roles 
-            td(data-name='song_create')
+            td
               input(type='checkbox' value=item.id) 
-        tr
+        tr(data-name='song_edit')
           td Sửa 
           each item in roles 
-            td(data-name='song_edit')
+            td
               input(type='checkbox' value=item.id) 
-        tr
+        tr(data-name='song_delete')
           td Xóa 
           each item in roles 
-            td(data-name='song_delete')
+            td
               input(type='checkbox' value=item.id) 
         //end songs 
-        //topics 
-        tr.category-row
-          td(colspan=roles.length + 1  style='background-color: #B8B8B8') Chủ đề bài hát 
-        tr
-          td Xem
-          each item in roles 
-            td(data-name='topic_view')
-              input(type='checkbox' value=item.id)
-        tr
-          td Thêm 
-          each item in roles 
-            td(data-name='topic_create')
-              input(type='checkbox' value=item.id) 
-        tr
-          td Sửa 
-          each item in roles 
-            td(data-name='topic_edit')
-              input(type='checkbox' value=item.id) 
-        tr
-          td Xóa 
-          each item in roles 
-            td(data-name='topic_delete')
-              input(type='checkbox' value=item.id) 
-
-        //end topics 
-        //singer 
-        tr.category-row
-          td(colspan=roles.length + 1  style='background-color: #B8B8B8') Ca sĩ 
-        tr
-          td Xem
-          each item in roles 
-            td(data-name='singer_view')
-              input(type='checkbox' value=item.id)
-        tr
-          td Thêm 
-          each item in roles 
-            td(data-name='singer_create')
-              input(type='checkbox' value=item.id) 
-        tr
-          td Sửa 
-          each item in roles 
-            td(data-name='singer_edit')
-              input(type='checkbox' value=item.id) 
-        tr
-          td Xóa 
-          each item in roles 
-            td(data-name='singer_delete')
-              input(type='checkbox' value=item.id)
-        //end singer  
-        //users 
-        tr.category-row
-          td(colspan=roles.length + 1  style='background-color: #B8B8B8') Người dùng 
-        tr
-          td Xem
-          each item in roles 
-            td(data-name='user_view')
-              input(type='checkbox' value=item.id)
-        tr
-          td Thêm 
-          each item in roles 
-            td(data-name='user_create')
-              input(type='checkbox' value=item.id) 
-        tr
-          td Sửa 
-          each item in roles 
-            td(data-name='user_edit')
-              input(type='checkbox' value=item.id) 
-        tr
-          td Xóa 
-          each item in roles 
-            td(data-name='user_delete')
-              input(type='checkbox' value=item.id)
-        //end users 
-        //roles 
-        tr.category-row
-          td(colspan=roles.length + 1  style='background-color: #B8B8B8') Nhóm quyền 
-        tr
-          td Xem
-          each item in roles 
-            td(data-name='role_view')
-              input(type='checkbox' value=item.id)
-        tr
-          td Thêm 
-          each item in roles 
-            td(data-name='role_create')
-              input(type='checkbox' value=item.id) 
-        tr
-          td Sửa 
-          each item in roles 
-            td(data-name='role_edit')
-              input(type='checkbox' value=item.id) 
-        tr
-          td Xóa 
-          each item in roles 
-            td(data-name='role_delete')
-              input(type='checkbox' value=item.id)
-        //end roles 
-        //permissions
-        tr.category-row
-          td(colspan=roles.length + 1  style='background-color: #B8B8B8') Phân Quyền 
-        tr
-          td Xem
-          each item in roles 
-            td(data-name='permission_view')
-              input(type='checkbox' value=item.id)
-        tr
-          td Thêm 
-          each item in roles 
-            td(data-name='permission_create')
-              input(type='checkbox' value=item.id) 
-        tr
-          td Sửa 
-          each item in roles 
-            td(data-name='permission_edit')
-              input(type='checkbox' value=item.id) 
-        tr
-          td Xóa 
-          each item in roles 
-            td(data-name='permission_delete')
-              input(type='checkbox' value=item.id)
-        //end permission 
-        //Account 
-        tr.category-row
-          td(colspan=roles.length + 1  style='background-color: #B8B8B8') Tài khoản
-        tr
-          td Xem
-          each item in roles 
-            td(data-name='account_view')
-              input(type='checkbox' value=item.id)
-        tr
-          td Thêm 
-          each item in roles 
-            td(data-name='account_create')
-              input(type='checkbox' value=item.id) 
-        tr
-          td Sửa 
-          each item in roles 
-            td(data-name='account_edit')
-              input(type='checkbox' value=item.id) 
-        tr
-          td Xóa 
-          each item in roles 
-            td(data-name='account_delete')
-              input(type='checkbox' value=item.id)
-
-        //end account 
-        //setting general 
-        tr.category-row
-          td(colspan=roles.length + 1  style='background-color: #B8B8B8') Cài đặt chung 
-        tr
-          td Xem
-          each item in roles 
-            td(data-name='setting_general_view')
-              input(type='checkbox' value=item.id)
-        tr
-          td Thêm 
-          each item in roles 
-            td(data-name='setting_general_create')
-              input(type='checkbox' value=item.id) 
-        tr
-          td Sửa 
-          each item in roles 
-            td(data-name='setting_general_edit')
-              input(type='checkbox' value=item.id) 
-        tr
-          td Xóa 
-          each item in roles 
-            td(data-name='setting_general_delete')
-              input(type='checkbox' value=item.id)
-        //end setting general 
+       
           
           

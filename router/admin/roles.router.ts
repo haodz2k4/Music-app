@@ -5,4 +5,5 @@ router.get("/",controller.index);
 router.get("/add",controller.add);
 router.post("/add",controller.addPost);
 router.get("/permissions",controller.permission);
+router.patch("/permissions",controller.permissionPatch)
 export default router;

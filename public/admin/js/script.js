@@ -185,25 +185,81 @@ if(btnChangeStatus.length > 0){
 //change status 
 //permissions 
 const tablePermission = document.querySelector("[table-permission]");
-if(tablePermission){
+if(tablePermission){ 
+    //push data to view 
     const dataRoles = document.querySelector("[data-roles]");
     const roles = JSON.parse(dataRoles.getAttribute("data-roles"));
-    
     roles.forEach((role, index) =>{
-
-
         for(const permission of role.permissions){
-            const dataName = tablePermission.querySelectorAll(`td[data-name=${permission}]`)[index];
-            console.log(dataName);
-            dataName.querySelector("input").checked = true;
+            const dataName = tablePermission.querySelector(`tr[data-name=${permission}]`);
+            const inp = dataName.querySelectorAll("input")[index];
+            inp.checked = true;
             
         }
     })
+    //end push data to view 
+    
 
 }
+//end permission 
+//update permission 
+const btnUpdatePermission = document.querySelector("[btn-updated-permission]");
+if(btnUpdatePermission){
+    btnUpdatePermission.addEventListener("click",() =>{
+        const roles = [];
+        const rows = document.querySelectorAll("table tbody tr[data-name]");
+        rows.forEach((row, index) =>{
+            const dataName = row.getAttribute("data-name");
+            const inp = row.querySelectorAll("input");
+            if(dataName === "id"){
+                for(const item of inp){
+                    roles.push({
+                        id: item.value,
+                        permissions: []
+                    })
+                }
+            }else{
+                inp.forEach((item, i) => {
+                    const inpChecked = item.checked;
+                    if(inpChecked){
+                        roles[i].permissions.push(dataName);
+                    }
+                });
+                
+            }
+        });
 
+        //handle update here 
+        const url = window.location.href;
+        const option = {
+            method: "PATCH",
+            body: JSON.stringify({roles}),
+            headers: {
+                'Content-Type': 'application/json' 
+            }
+        };
+        (async () => {
+            try {
+                const response = await fetch(url, option);
+                const data = await response.json();
+                if (data.success) {
+                    alert("Cập nhật thành công");
+                } else {
+                    alert("Cập nhật thất bại");
+                }
+            } catch (error) {
+                console.error("Lỗi khi cập nhật roles:", error);
+                alert("Đã xảy ra lỗi trong quá trình cập nhật");
+            }
+        })();
+        //end update
 
-//end permission
+        
+
+    })
+}
+//end updatePermsison
+
 
 
 
