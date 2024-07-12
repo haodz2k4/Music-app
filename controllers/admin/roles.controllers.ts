@@ -38,3 +38,14 @@ export const addPost = async (req: Request, res: Response) :Promise<void>  =>{4
         res.redirect("back");
     }
 }
+//[GET] "/admin/roles/permissions"
+export const permission = async (req: Request, res: Response) :Promise<void>  =>{ 
+
+    const roles = await Role.find({
+        deleted: false,
+        status: "active"
+    })
+    res.render("admin/pages/roles/permission.pug",{
+        roles
+    });
+}

@@ -35,7 +35,7 @@ if(btnFilterStatus.length > 0){
 }
 //end filter 
 //handle checked
-const table = document.querySelector("table");
+const table = document.querySelector("table[table-manage]");
 if(table){
     const checkAll = table.querySelector("thead tr th input[name='check-all']");
     const checkMulti = table.querySelectorAll("tbody tr td input[name='ids']");
@@ -183,7 +183,27 @@ if(btnChangeStatus.length > 0){
 }
 
 //change status 
+//permissions 
+const tablePermission = document.querySelector("[table-permission]");
+if(tablePermission){
+    const dataRoles = document.querySelector("[data-roles]");
+    const roles = JSON.parse(dataRoles.getAttribute("data-roles"));
+    
+    roles.forEach((role, index) =>{
 
+
+        for(const permission of role.permissions){
+            const dataName = tablePermission.querySelectorAll(`td[data-name=${permission}]`)[index];
+            console.log(dataName);
+            dataName.querySelector("input").checked = true;
+            
+        }
+    })
+
+}
+
+
+//end permission
 
 
 

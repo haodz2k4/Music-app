@@ -211,4 +211,7 @@ audio {
   color: red
 }
 
-/* end card roles  */
+/* end card roles  */ 
+.hightlight-roles {
+  background-color: rgb(93, 90, 90);
+}
