@@ -35,7 +35,7 @@ if(btnFilterStatus.length > 0){
 }
 //end filter 
 //handle checked
-const table = document.querySelector("table[table-manage]");
+const table = document.querySelector("[table-manage]");
 if(table){
     const checkAll = table.querySelector("thead tr th input[name='check-all']");
     const checkMulti = table.querySelectorAll("tbody tr td input[name='ids']");
@@ -127,6 +127,10 @@ if(btnDeleted.length > 0){
             const valuePathDeleted = pathDeleted.getAttribute("path-deleted");
             const path = `${valuePathDeleted}/${id}`
             const response = await fetch(path, option);
+            if(response.status === 403){
+                window.location.href = '/admin/auth/access/deny';
+                return;
+            }
             const data = await response.json();
             if(data.success){
                 alert("Xóa sản phẩm thành công");
@@ -159,6 +163,10 @@ if(btnChangeStatus.length > 0){
                 method: "PATCH"
             }
             const response = await fetch(updatePath,action);
+            if (response.status === 403) {
+                    window.location.href = '/admin/auth/access/deny';
+                    return;
+                }
             const data = await response.json();
             if(data.success){
                 item.innerHTML = data.status;

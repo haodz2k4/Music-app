@@ -42,3 +42,7 @@ export const logout = async (req: Request, res: Response) =>{
     res.clearCookie("tokenAccount");
     res.redirect(`/${prefixAdmin}/auth/login`);
 }
+//[GET] "/admin/auth/access/deny"
+export const accessDeny = (req: Request, res: Response) : void =>{
+    res.render("admin/pages/auth/access-deny.pug")
+}

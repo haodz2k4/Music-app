@@ -217,6 +217,7 @@ export const deleted = async (req: Request, res: Response) :Promise<void> =>{
 }
 //[PATCH] "/admin/songs/change-status/:status/:id"
 export const changeStatus = async (req: Request, res: Response) :Promise<void>  =>{
+    console.log("run here")
     const status = req.params.status;
     const id = req.params.id;
     try {
