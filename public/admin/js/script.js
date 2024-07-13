@@ -259,7 +259,7 @@ if(btnUpdatePermission){
     })
 }
 //end updatePermsison
-
+//preview img 
 const inpPreview = document.querySelector("[inp-preview]");
 if(inpPreview){
     const imgPreview = document.querySelector("[img-preview]");
@@ -271,5 +271,14 @@ if(inpPreview){
         }
     })
 }
-
+//preview img 
+const btnLogout = document.querySelector("[btn-logout]");
+if(btnLogout){
+    btnLogout.addEventListener("click",() =>{
+        const isConfirm = confirm("Bạn có muốn đăng xuất tài khoản này không");
+        if(!isConfirm){
+            return;
+        }
+    })
+}
 

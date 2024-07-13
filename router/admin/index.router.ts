@@ -8,13 +8,14 @@ import authRouter from './auth.router';
 
 import system from '../../config/system';
 const prefixAdmin: string = system.prefixAdmin;
-
+//require middleware
+import { requireAuth } from '../../middlewares/admin/auth.midlleware';
 export default (app: Express) =>{
     app.locals.prefixAdmin = prefixAdmin
-    app.use(`/${prefixAdmin}/dashboard`,dashboardRouter);
-    app.use(`/${prefixAdmin}/songs`,songRouter);
-    app.use(`/${prefixAdmin}/roles`,roleRouter);
-    app.use(`/${prefixAdmin}/accounts`,accountRouter);
+    app.use(`/${prefixAdmin}/dashboard`,requireAuth,dashboardRouter);
+    app.use(`/${prefixAdmin}/songs`,requireAuth,songRouter);
+    app.use(`/${prefixAdmin}/roles`,requireAuth,roleRouter);
+    app.use(`/${prefixAdmin}/accounts`,requireAuth,accountRouter);
     app.use(`/${prefixAdmin}/auth/`,authRouter)
 
 }

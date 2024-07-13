@@ -36,3 +36,9 @@ export const loginPost = async (req: Request, res: Response) =>{
     }
     
 }
+//[GET] "/admin/auth/logout"
+export const logout = async (req: Request, res: Response) =>{
+
+    res.clearCookie("tokenAccount");
+    res.redirect(`/${prefixAdmin}/auth/login`);
+}
