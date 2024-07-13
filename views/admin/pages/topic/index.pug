@@ -2,7 +2,8 @@ extends ../../layouts/default.pug
 include ../../mixins/show-alert.pug
 
 block main 
-        h1.text-center(style='margin: 20px; font-family: Arial, Helvetica, sans-serif;font-weight: 700') Chủ đề bài hát  
+        h1.text-center(style='margin: 20px; font-family: Arial, Helvetica, sans-serif;font-weight: 700') chủ đề bài hát 
+          i.fa-solid.fa-list
         .container
           +alertSuccess(success_msg)
           +alertError(error_msg)

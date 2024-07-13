@@ -1,8 +1,8 @@
 extends ../../layouts/default.pug 
 include ../../mixins/show-alert.pug
 block main 
-        h1.text-center(style='margin: 20px; font-family: Arial, Helvetica, sans-serif;font-weight: 700') Quản lý ca sĩ 
-          i.fa-solid.fa-guitar
+        h1.text-center(style='margin: 20px; font-family: Arial, Helvetica, sans-serif;font-weight: 700') Quản Lý Người Dùng 
+            i.fa-solid.fa-users
         .container
           +alertSuccess(success_msg)
           +alertError(error_msg)
@@ -59,30 +59,30 @@ block main
                 |  Xem Th&ugrave;ng R&aacute;c
                 span.position-absolute.top-0.start-100.translate-middle.badge.rounded-pill.bg-danger(show-count-trash='')
                   | 0
-                  span.visually-hidden  
+                  span.visually-hidden 
         table.table 
-          thead 
-            tr 
-              th #
-              th Họ và tên 
-              th avatar
-              th Số Lượng bài hát 
-              th Số Lượng Follow 
-              th Trạng thái 
-              th ngày tạo 
-              th Thao tác 
-          tbody 
-            each item, index in singers 
+           thead 
+             tr 
+               th #
+               th Họ và tên 
+               th Avatar
+               th Email 
+               th Trạng thái 
+               th Ngày Sinh 
+               th Ngày Đăng Ký 
+               th Thao tác 
+           tbody 
+            each item, index in users 
               tr 
                 td #{index + 1}
                 td #{item.fullName}
                 td 
-                  img(src=item.avatar, alt="", style='width: 70px; height: 70px')
-                td #{item.songCount}
-                td #{item.followCount}
+                    img(src=item.avatar, alt="", style='width: 70px; height: 70px')
+                td #{item.email}
                 td 
                   span(class=`${item.status === "active" ? 'badge rounded-pill text-bg-success' : 'badge rounded-pill text-bg-danger'}` btn-change-status=item.id status=item.status) #{item.status}
-                td #{moment(item.createdAt).format("MMM Do YY")} 
+                td #{moment(item.birthDate).subtract(10, 'days').calendar()} 
+                td #{moment(item.createdAt).format('MMMM Do YYYY, h:mm:ss a')}
                 td 
                   .btn-group(role='group', aria-label='Basic mixed styles example')
                     button.btn.btn-danger(type='button') 
@@ -93,4 +93,5 @@ block main
                       |  Sửa  
                     button.btn.btn-secondary(type='button') 
                       i.fa-solid.fa-magnifying-glass  
-                      |  Chi tiết 
+                      |  Chi tiết
+              
