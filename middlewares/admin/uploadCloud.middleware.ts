@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { v2 as cloudinary, UploadApiResponse } from 'cloudinary';
 import streamifier from 'streamifier';
+import { uploadToCloudinary } from "../../helpers/uploadToCloudinary.helper";
 cloudinary.config({ 
   cloud_name: 'dwcp8hogw', 
   api_key: '695526995712779', 
@@ -52,3 +53,17 @@ export const uploadFile = async (req: Request, res: Response, next: NextFunction
     res.status(500).json({ message: "Failed to upload image" });
   }
 };
+export const uploadSingle = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  if(req["file"]) {
+    const link = await uploadToCloudinary(req["file"].buffer);
+    req.body[req["file"].fieldname] = link;
+    
+    next();
+  } else {
+    next();
+  }
+}

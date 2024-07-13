@@ -1,8 +1,10 @@
 extends ../../layouts/default.pug 
-
+include ../../mixins/show-alert.pug 
 block main 
-    .container
-      .form-container.card
+    .container 
+      +alertSuccess(success_msg)
+      +alertError(error_msg)
+      .form-container
         .card-body
           h2.card-title.mb-4.text-center  Thêm bài hát 
           form("" method="POST" enctype="multipart/form-data")

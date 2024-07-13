@@ -260,6 +260,16 @@ if(btnUpdatePermission){
 }
 //end updatePermsison
 
-
+const inpPreview = document.querySelector("[inp-preview]");
+if(inpPreview){
+    const imgPreview = document.querySelector("[img-preview]");
+    inpPreview.addEventListener("change",() =>{
+        const [file] = inpPreview.files;
+        if(file){
+            imgPreview.src = URL.createObjectURL(file);
+            imgPreview.classList.remove("d-none")
+        }
+    })
+}
 
 

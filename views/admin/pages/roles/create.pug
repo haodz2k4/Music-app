@@ -1,7 +1,9 @@
 extends ../../layouts/default.pug 
-
+include ../../mixins/show-alert.pug 
 block main  
-    .container.mt-5
+    .container.mt-5 
+      +alertSuccess(success_msg)
+      +alertError(error_msg)
       .row.justify-content-center
         .col-md-6(style='width: 1000px')
           .card.shadow-sm
