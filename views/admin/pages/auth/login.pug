@@ -1,0 +1,30 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0") 
+        link(rel="stylesheet", href="/admin/css/auth.css")
+        title Đăng Nhập Admin
+    body 
+     .wrapper
+      form(action="" method="POST").login_box
+        .login-header
+          span Admin Login
+        .input_box
+          input#user.input-field(type='text', required='' name='email')
+          label.label(for='user') Email
+          i.bx.bx-user.icon
+        .input_box
+          input#pass.input-field(type='password', required='' name='login')
+          label.label(for='pass') Password
+          i.bx.bx-lock-alt.icon
+        .remember-forgot
+          .remember-me
+            input#remember(type='checkbox')
+            label(for='remember') Ghi nhớ tôi
+        .input_box
+          input.input-submit(type='submit', value='Login')
+        .register
+          span
+            | Bạn quên mật khẩu ? 
+            a(href='#') Admin

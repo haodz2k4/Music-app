@@ -1,9 +1,11 @@
 import {Request, Response} from 'express';
+import {hash} from 'bcrypt';
 import Account from '../../models/accounts.model';
 import Role from '../../models/roles.model';
 //require helper
 import {btnStatus} from '../../helpers/status.helper';
 import system from '../../config/system';
+import { generateString } from '../../helpers/generate.helper';
 //[GET] "/admin/accounts"
 export const index = async (req: Request, res: Response) :Promise<void> =>{
     const listBtn = btnStatus(req);
@@ -31,6 +33,8 @@ export const add = async (req: Request, res: Response) :Promise<void> =>{
 //[POST] "/admin/accounts/add"
 export const addPost = async (req: Request, res: Response) :Promise<void> =>{ 
     const prefixAdmin = system.prefixAdmin;
+    req.body.token = generateString(30);
+    req.body.password = await hash(req.body.password,10);
     try {
         const account = new Account(req.body);
         await account.save();

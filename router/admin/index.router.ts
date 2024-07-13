@@ -4,6 +4,8 @@ import dashboardRouter from './dashboard.router';
 import songRouter from './song.router';
 import accountRouter from './account.router';
 import roleRouter from './roles.router';
+import authRouter from './auth.router';
+
 import system from '../../config/system';
 const prefixAdmin: string = system.prefixAdmin;
 
@@ -12,6 +14,7 @@ export default (app: Express) =>{
     app.use(`/${prefixAdmin}/dashboard`,dashboardRouter);
     app.use(`/${prefixAdmin}/songs`,songRouter);
     app.use(`/${prefixAdmin}/roles`,roleRouter);
-    app.use(`/${prefixAdmin}/accounts`,accountRouter)
+    app.use(`/${prefixAdmin}/accounts`,accountRouter);
+    app.use(`/${prefixAdmin}/auth/`,authRouter)
 
 }
