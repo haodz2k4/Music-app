@@ -2,7 +2,7 @@ extends ../../layouts/default.pug
 
 block main 
     .container.mt-5
-      .form-container.card
+      .form-container
         .card-body
           h2.card-title.mb-4.text-center  Chỉnh sửa 
           form(action=`/admin/songs/edit/${song.id}?_method=PATCH`  method="POST" enctype="multipart/form-data")

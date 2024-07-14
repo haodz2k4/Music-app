@@ -41,7 +41,7 @@ block main
             // Add Button
             .col-md-4
               h5 Th&ecirc;m s&#x1EA3;n ph&#x1EA9;m
-              a.btn.btn-warning(href=`/${prefixAdmin}/roles/add`, style='background-color: #5a7ad3; color: white;')
+              a.btn.btn-warning(href=`/${prefixAdmin}/songs/add`, style='background-color: #5a7ad3; color: white;')
                 i.fa-solid.fa-plus
                 |  Thêm
             .col-md-4
@@ -73,6 +73,8 @@ block main
                 th Lượt nghe 
                 th Lượt Thích  
                 th Trạng thái 
+                th Tạo vào 
+                th Người tạo 
                 th Thao tác
             tbody
               each item, index in songs
@@ -88,14 +90,20 @@ block main
                     td 
                       strong #{item.likes}
                     td 
-                      span(class=`${item.status === "active" ? 'badge rounded-pill text-bg-success' : 'badge rounded-pill text-bg-danger'}` btn-change-status=item.id status=item.status) #{item.status}
+                      span(class=`${item.status === "active" ? 'badge rounded-pill text-bg-success' : 'badge rounded-pill text-bg-danger'}` btn-change-status=item.id status=item.status) #{item.status} 
+                    td #{moment(item.updatedAt).format('MMMM Do YYYY, h:mm:ss a')} 
+                    td #{item.createdBy}
                     td 
                       .btn-group(role='group', aria-label='Basic mixed styles example')
                         a(href=`/${prefixAdmin}/songs/detail/`+item.id).btn.btn-secondary
-                            i.fa-solid.fa-magnifying-glass
+                            i.fa-solid.fa-magnifying-glass 
+                            |  Chi tiết 
                         a(href=`/${prefixAdmin}/songs/edit/`+item.id).btn.btn-warning
-                            i.fa-solid.fa-pen-to-square
+                            i.fa-solid.fa-pen-to-square  
+                            |  Sửa 
                         a.btn.btn-danger(btn-deleted=item.id)
-                            i.fa-solid.fa-x 
+                            i.fa-solid.fa-trash 
+                            |  Xóa 
+                      
 
         div(path-deleted=`/${prefixAdmin}/songs/deleted`    path-change-status=`/${prefixAdmin}/songs/change-status`).d-none

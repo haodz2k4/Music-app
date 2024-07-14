@@ -15,7 +15,7 @@ import { checkPermission, checkPermissionApi } from './../../middlewares/admin/p
 import * as validate from '../../validates/admin/song.validate';
 router.get("/",checkPermission('song_view'),controller.index);
 router.get("/add",checkPermission('song_create'),controller.add);
-router.post("/add",checkPermission('song_create'),validate.createSong,uploadFields,uploadFile,controller.addPost);
+router.post("/add",checkPermission('song_create'),uploadFields,uploadFile,validate.createSong,controller.addPost);
 router.patch("/change-multi",checkPermission('song_edit'),controller.changeMulti);
 router.get("/detail/:id",checkPermission('song_view'),controller.detail);
 router.get("/edit/:id",checkPermission('song_edit'),controller.edit);

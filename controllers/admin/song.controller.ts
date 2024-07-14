@@ -4,6 +4,7 @@ import Song from '../../models/song.model';
 import Topic from '../../models/topics.model';
 import Singer from '../../models/singer.model';
 import Like from '../../models/like.model';
+import Account from '../../models/accounts.model';
 //require helper here
 import { btnStatus } from "../../helpers/status.helper";
 import { listSort } from "../../helpers/sort.helper";
@@ -24,7 +25,7 @@ export const index = async (req: Request, res: Response): Promise<void> => {
         Find.title = regrex;
     }
     //end search
-
+    
     // filter 
     const listBtn = btnStatus(req);
     const status = req.query.status;
@@ -47,9 +48,11 @@ export const index = async (req: Request, res: Response): Promise<void> => {
         item.likes = await Like.countDocuments({
             songId: item.id
         })
+        item.createdBy = (await Account.findOne({
+            _id: item.createdBy
+        }))?.fullName
         
     }
-    
     res.render("admin/pages/song/index.pug", {
         activePages: 'songs',
         keyword,
@@ -80,7 +83,8 @@ export const add = async (req: Request, res: Response) :Promise<void> =>{
 }
 //[POST] "/admin/songs/add
 export const addPost = async (req: Request, res: Response) :Promise<void>  =>{
-
+    const account = res.locals.account;
+    req.body.createdBy = account.id;
     try {
         const song = new Song(req.body);
         await song.save();
@@ -94,12 +98,15 @@ export const addPost = async (req: Request, res: Response) :Promise<void>  =>{
 export const changeMulti = async (req: Request, res: Response) :Promise<void>  =>{
     const status = req.body.status;
     const ids = req.body.ids.split("-");
+    
+    const account = res.locals.account;
     switch(status) {
         case "active": 
             await Song.updateMany({
                 _id: {$in: ids}
             },{
-                status: status
+                status: status,
+                updatedBy: account.id
             }) 
             req.flash('success_msg','Cập nhật trạng thái thành công') 
             break;
@@ -107,7 +114,8 @@ export const changeMulti = async (req: Request, res: Response) :Promise<void>  =
             await Song.updateMany({
                 _id: {$in: ids}
             },{
-                status: status
+                status: status,
+                updatedBy: account.id
             })
             req.flash('success_msg','Cập nhật trạng thái thành công') 
             break;
@@ -115,7 +123,8 @@ export const changeMulti = async (req: Request, res: Response) :Promise<void>  =
             await Song.updateMany({
                 _id: {$in: ids}
             },{
-                deleted: true
+                deleted: true,
+                updatedBy: account.id
             })
             req.flash('success_msg','Xóa các sản phẩm thành công')
             break;
@@ -183,8 +192,10 @@ export const edit = async (req: Request, res: Response) : Promise<void>  =>{
 }
 //[PATCH] "/admin/songs/edit/:id"
 export const editPatch = async (req: Request, res: Response) :Promise<void>  =>{
-
+    
+    const account = res.locals.account;
     try {
+        req.body.updatedBy = account.id
         const id = req.params.id;
         const body = req.body;
         await Song.updateOne({
@@ -199,13 +210,16 @@ export const editPatch = async (req: Request, res: Response) :Promise<void>  =>{
 }
 //[PATCH] "/admin/songs/deleted/:id" (api)
 export const deleted = async (req: Request, res: Response) :Promise<void> =>{
+    
+    const account = res.locals.account;
     try {
         const id = req.params.id;
         
         await Song.updateOne({
             _id: id
         },{
-            deleted: true
+            deleted: true,
+            updatedBy: account.id
         })
     
         res.status(200).json({success: true, message: "Xóa thành công"});
@@ -217,14 +231,17 @@ export const deleted = async (req: Request, res: Response) :Promise<void> =>{
 }
 //[PATCH] "/admin/songs/change-status/:status/:id"
 export const changeStatus = async (req: Request, res: Response) :Promise<void>  =>{
-    console.log("run here")
+    
+    const account = res.locals.account;
+
     const status = req.params.status;
     const id = req.params.id;
     try {
         await Song.updateOne({
             _id: id
         }, {
-            status: status
+            status: status,
+            updatedBy: account.id
         })
         res.status(200).json({success: true, message: "Cập nhật thành công", status: status})
     } catch (error) {

@@ -22,7 +22,9 @@ const songSchema: Schema = new Schema({
     deleted: {
         type: Boolean,
         default: false
-    }
+    },
+    createdBy: String,
+    updatedBy: String
 },{
     timestamps: true
 })  
