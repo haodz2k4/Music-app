@@ -34,9 +34,9 @@
         i.fa-solid.fa-user-lock
         |  T&agrave;i kho&#x1EA3;n
     li.nav-item
-      a.nav-link(href='#')
+      a.nav-link(href=`/${prefixAdmin}/settings/general` class=`${activePages === 'settings-general' ? 'active' : ''}`)
         i.fa-solid.fa-gear
-        |  C&agrave;i &dstrok;&#x1EB7;t chung
+        |  Cài đặt chung 
   .bottom-section(style='margin-top: 30px;')
     hr
     ul.nav.flex-column
@@ -47,8 +47,8 @@
       li.nav-item
         a(href=`/${prefixAdmin}/auth/logout` btn-logout).nav-link
           i.fa-solid.fa-right-from-bracket
-          |  &Dstrok;&abreve;ng xu&#x1EA5;t
+          |  Đăng xuất 
       li.nav-item
         a.nav-link(href='#')
           i.fa-solid.fa-cogs
-          |  H&#x1EC7; th&#x1ED1;ng
+          |  Hệ thống 

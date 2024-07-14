@@ -46,7 +46,8 @@ export const permission = async (req: Request, res: Response) :Promise<void>  =>
         status: "active"
     })
     res.render("admin/pages/roles/permission.pug",{
-        roles
+        roles,
+        activePages: 'permissions'
     });
 }
 //[PATCH] "/admin/roles/permissions"

@@ -1,0 +1,17 @@
+extends ../../layouts/default.pug 
+include ../../mixins/show-alert.pug 
+block main 
+    .container 
+      +alertSuccess(success_msg)
+      +alertError(error_msg)
+      .form-container
+        .card-body
+          h2.card-title.mb-4.text-center  Cài Đặt Chung 
+          form("" method="POST" enctype="multipart/form-data")
+            // Title
+            .form-group
+              label(for='title') Title
+              input#title.form-control(type='text', name='title', required='')
+            // Avatar
+            
+            button.btn.btn-primary.btn-block(type='submit' style='width: 100%') Cập nhật / Thêm 
