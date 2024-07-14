@@ -1,17 +1,55 @@
 extends ../../layouts/default.pug 
 include ../../mixins/show-alert.pug 
 block main 
+    h1.text-center(style='margin: 20px; font-family: Arial, Helvetica, sans-serif;font-weight: 700') Cài đặt chung 
+      i.fa-solid.fa-gear  
     .container 
-      +alertSuccess(success_msg)
-      +alertError(error_msg)
+      
+      .row.justify-content-between.tool-bar
+            // Search Bar
+            .col-md-4
+              h5 Cập nhật gần nhất 
+              p #{settingGeneral ? moment(settingGeneral.updatedAt).format('MMMM Do YYYY, h:mm:ss a') : "Chưa Có "} 
+            .col-md-4
+              h5 Người Cập nhật  
+              p #{updatedBy ? updatedBy : "Chưa Có "} 
+            .col-md-4 
+              h5 Thao tác 
+              .btn-group(role='group', aria-label='Basic mixed styles example')
+                button.btn.btn-danger(type='button') 
+                  i.fa-solid.fa-trash 
+                  |  Xóa 
+                button.btn.btn-warning(type='button')
+                  i.fa-solid.fa-clock-rotate-left 
+                  |  Xem lịch sử 
+                button.btn.btn-info(type='button')
+                  i.fa-solid.fa-circle-info 
+                  |  Chi tiết 
       .form-container
         .card-body
-          h2.card-title.mb-4.text-center  Cài Đặt Chung 
-          form("" method="POST" enctype="multipart/form-data")
-            // Title
+          h2.card-title.mb-4.text-center  Cập nhật cài đặt chung  
+            i.fa-solid.fa-gear
+          +alertSuccess(success_msg)
+          +alertError(error_msg)
+          form(action=`/${prefixAdmin}/settings/general?_method=PATCH` method="POST" enctype="multipart/form-data")
+            // websiteName
             .form-group
-              label(for='title') Title
-              input#title.form-control(type='text', name='title', required='')
-            // Avatar
-            
+              label(for='websiteName') Tên Web site 
+              input#websiteName.form-control(type='text', name='websiteName' value=(settingGeneral ? settingGeneral.websiteName : "")) 
+            .form-group
+              label(for='logo') logo
+              input#logo.form-control(type='file', name='logo' inp-preview) 
+              img(src=settingGeneral ? settingGeneral.logo : "", alt="" img-preview style="width: 50px; height: 50px")
+            .form-group
+              label(for='phone') Số điện thoại  
+              input#phone.form-control(type='text', name='phone', required='',value=(settingGeneral ? settingGeneral.phone : ""))  
+            .form-group
+              label(for='email') Email liên hệ   
+              input#email.form-control(type='email', name='email', required='',value=(settingGeneral ? settingGeneral.email : ""))  
+            .form-group
+              label(for='address') Địa chỉ 
+              input#address.form-control(type='text', name='address', required='', value=(settingGeneral ? settingGeneral.address : "")) 
+            .form-group
+              label(for='copyright') Bản quyền bởi 
+              input#copyright.form-control(type='text', name='copyright', required='', value=(settingGeneral ? settingGeneral.copyright : "")) 
             button.btn.btn-primary.btn-block(type='submit' style='width: 100%') Cập nhật / Thêm 
