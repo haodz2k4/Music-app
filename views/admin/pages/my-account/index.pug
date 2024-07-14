@@ -1,0 +1,80 @@
+extends ../../layouts/default.pug 
+
+block main  
+    .container.mt-5
+      .row
+        // Sidebar
+        .col-md-4
+          .profile-sidebar
+            img.profile-picture(src=account.avatar, alt='Profile Picture')
+            .profile-name #{account.fullName}
+            .profile-role #{role.title}
+            button.btn.btn-primary.btn-follow Số Lượng Quyền: #{role.permissions.length}
+            button.btn.btn-secondary.btn-message Xem dưới dạng khách
+            nav.nav.flex-column.mt-4
+              a.nav-link.active(href='#') Danh sách vé 
+              a.nav-link(href='#') Hỗ trợ nhân viên 
+              a.nav-link(href='#') Cấu Hình  
+        
+            .user-list
+                h5 Danh sách tài khoản 
+                each item in accounts 
+                    .user-item
+                        img.user-avatar(src=item.avatar, alt='Avatar')
+                        .user-info
+                            .user-name #{item.fullName}
+                            .user-role #{item.nameRole}
+                            .user-status Online 2 ngày trước 
+                
+        // Main Content
+        .col-md-8
+          .card
+            .card-body
+              ul#myTab.nav.nav-tabs(role='tablist')
+                li.nav-item
+                  a#update-tab.nav-link.active(data-toggle='tab', href='#update', role='tab', aria-controls='update', aria-selected='true') Cập nhật 
+                li.nav-item
+                  a#profile-tab.nav-link(data-toggle='tab', href='#profile', role='tab', aria-controls='profile', aria-selected='false') Profile
+                li.nav-item
+                  a#messages-tab.nav-link(data-toggle='tab', href='#messages', role='tab', aria-controls='messages', aria-selected='false') Tin nhắn 
+                li.nav-item
+                  a#settings-tab.nav-link(data-toggle='tab', href='#settings', role='tab', aria-controls='settings', aria-selected='false') Cài đặt 
+              #myTabContent.tab-content
+                #update.tab-pane.fade.show.active(role='tabpanel', aria-labelledby='update-tab')
+                  form
+                    .form-group
+                      label(for='name') Họ và tên 
+                      input#fullName.form-control(type='text', placeholder='fullName' value=account.fullName) 
+                    .form-group
+                        label(for='avatar') avatar
+                        input#avatar.form-control(type='file', name='avatar' inp-preview) 
+                        img(src="", alt="" img-preview style="width: 50px; height: 50px" ).d-none
+                    .form-group
+                      label(for='lastName') Mô tả 
+                      textarea#lastName.form-control(type='text', placeholder='Last Name') #{account.description} 
+                    .form-group
+                        label(for='role_id') Nhóm quyền 
+                        select#singerId.form-control(name='role_id')
+                            each item in roles 
+                                option(value=item.id selected=(item.id === role.id ? true : false)) #{item.title}
+                    .form-group
+                      label(for='email') Email address
+                      input#email.form-control(type='email', placeholder='Email address', value=account.email) 
+                    .form-group
+                        label(for='phone') Số điện thoại 
+                        input#phone.form-control(type='text', name='phone' value=account.phone) 
+                    .form-group
+                    label Giới tính 
+                    .form-check
+                        input#genderMale.form-check-input(type='radio', name='gender', value='Nam' checked=(account.gender === 'Nam' ? true : false))
+                        label.form-check-label(for='statusActive')
+                            | Nam
+                    .form-check
+                        input#genderFemale.form-check-input(type='radio', name='gender', value='Nữ' checked=(account.gender === 'Nữ' ? true : false))
+                        label.form-check-label(for='statusInactive')
+                            | Nữ 
+                    .form-group
+                        label(for='avatar') Ngày Sinh 
+                        input#birthDate.form-control(type='date', name='birthDate' value=(moment(account.birthDate).format('YYYY-MM-DD'))) 
+                    button.btn.btn-info(type='submit' style='width: 100%') Cập nhật
+                // Other tabs content (Profile, Messages, Settings) can be added here

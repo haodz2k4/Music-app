@@ -41,9 +41,9 @@
     hr
     ul.nav.flex-column
       li.nav-item
-        a.nav-link(href='../my-account/index.html')
+        a.nav-link(href=`/${prefixAdmin}/my-account` class=`${activePages === 'my-account' ? 'active' : ''}`)
           i.fa-solid.fa-user
-          |  T&agrave;i kho&#x1EA3;n c&aacute; nh&acirc;n
+          |  Tài khoản cá nhân
       li.nav-item
         a(href=`/${prefixAdmin}/auth/logout` btn-logout).nav-link
           i.fa-solid.fa-right-from-bracket

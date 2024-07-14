@@ -8,6 +8,7 @@ import authRouter from './auth.router';
 import topicRouter from './topic.router';
 import singerRouter from './singer.router';
 import userRouter from './user.router';
+import myAccountRouter from './my-account.router';
 import system from '../../config/system';
 const prefixAdmin: string = system.prefixAdmin;
 //require middleware
@@ -20,7 +21,8 @@ export default (app: Express) =>{
     app.use(`/${prefixAdmin}/accounts`,requireAuth,accountRouter);
     app.use(`/${prefixAdmin}/topics`,requireAuth,topicRouter);
     app.use(`/${prefixAdmin}/singers`,requireAuth,singerRouter);
-    app.use(`/${prefixAdmin}/users`,requireAuth, userRouter)
+    app.use(`/${prefixAdmin}/users`,requireAuth, userRouter);
+    app.use(`/${prefixAdmin}/my-account`,requireAuth, myAccountRouter);
     app.use(`/${prefixAdmin}/auth/`,authRouter)
 
 }

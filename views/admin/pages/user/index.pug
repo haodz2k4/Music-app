@@ -82,7 +82,7 @@ block main
                 td 
                   span(class=`${item.status === "active" ? 'badge rounded-pill text-bg-success' : 'badge rounded-pill text-bg-danger'}` btn-change-status=item.id status=item.status) #{item.status}
                 td #{moment(item.birthDate).subtract(10, 'days').calendar()} 
-                td #{moment(item.createdAt).format('MMMM Do YYYY, h:mm:ss a')}
+                td #{moment(item.createdAt  ).format('MMMM Do YYYY, h:mm:ss a')}
                 td 
                   .btn-group(role='group', aria-label='Basic mixed styles example')
                     button.btn.btn-danger(type='button') 

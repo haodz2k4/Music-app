@@ -14,17 +14,19 @@ html(lang="en")
     .main-content
       header
         nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
-          a.navbar-brand(href='/admin/auth/login') 
+          a.navbar-brand 
           button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarNav', aria-controls='navbarNav', aria-expanded='false', aria-label='Toggle navigation')
             span.navbar-toggler-icon
           #navbarNav.collapse.navbar-collapse
             ul.navbar-nav.ml-auto
               li.nav-item.active
-                a.nav-link(href='#')
-                  | Home 
+                a.nav-link(href='#' style='color: white')
+                  strong #{account.fullName} 
                   span.sr-only (current)
                 li.nav-item
-                  a.nav-link(href='/admin/auth/logout') Logout  
+                  a.nav-link(href='/admin/auth/logout' style='color: white') 
+                    strong Vai trò: 
+                    | #{role.title}
               
       // Page content
       .container-fluid
