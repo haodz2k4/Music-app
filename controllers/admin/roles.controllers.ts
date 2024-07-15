@@ -1,7 +1,7 @@
 
 import {Request, Response} from 'express';
 import Role from '../../models/roles.model';
-import { btnStatus } from '../../helpers/status.helper';
+import { btnStatus } from '../../helpers/filter.helper';
 import system from '../../config/system'; 
 
 const prefixAdmin = system.prefixAdmin

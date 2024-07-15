@@ -6,7 +6,7 @@ import Singer from '../../models/singer.model';
 import Like from '../../models/like.model';
 import Account from '../../models/accounts.model';
 //require helper here
-import { btnStatus } from "../../helpers/status.helper";
+import { btnStatus } from "../../helpers/filter.helper";
 import { listSort } from "../../helpers/sort.helper";
 //[GET] "/admin/songs"
 export const index = async (req: Request, res: Response): Promise<void> => {

@@ -2,7 +2,7 @@ import { Request, Response } from "express"
 
 import User from '../../models/user.model';
 //require helper
-import { btnStatus } from "../../helpers/status.helper"
+import { btnStatus } from "../../helpers/filter.helper"
 //[GET] "/admin/users"
 export const index = async (req: Request, res: Response) :Promise<void>  =>{
 

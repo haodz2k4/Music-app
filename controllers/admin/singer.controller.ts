@@ -4,7 +4,7 @@ import Song from '../../models/song.model';
 import Follow from '../../models/follow.model';
 
 
-import { btnStatus } from "../../helpers/status.helper";
+import { btnStatus } from "../../helpers/filter.helper";
 //[GET]  "/admin/singers"
 export const index = async (req: Request, res: Response) :Promise<void> =>{
 

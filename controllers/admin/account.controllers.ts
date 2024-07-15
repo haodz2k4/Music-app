@@ -3,7 +3,7 @@ import {hash} from 'bcrypt';
 import Account from '../../models/accounts.model';
 import Role from '../../models/roles.model';
 //require helper
-import {btnStatus} from '../../helpers/status.helper';
+import {btnStatus} from '../../helpers/filter.helper';
 import system from '../../config/system';
 import { generateString } from '../../helpers/generate.helper';
 //[GET] "/admin/accounts"

@@ -3,7 +3,13 @@ extends ../../layouts/default.pug
 
 block main 
     .container.mt-5
-      h1.mb-4 Trang Quản Trị 
+      h1.text-center(style='margin: 20px; font-family: Arial, Helvetica, sans-serif;font-weight: 700') DASHBOARD
+      select.form-control.w-25(select-statistis)
+        option - Thống kê Theo - 
+        option(value='statistis-day') Theo Ngày 
+        option(value='statistis-week') Theo Tuần 
+        option(value='statistis-month') Theo Tháng 
+        option(value='statistis-year') Theo Năm 
       .row
         .col-md-3
           .card.text-white.bg-primary.card-custom

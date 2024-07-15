@@ -322,3 +322,19 @@ var barChart = new Chart(ctx2, {
         }]
     }
 });
+//statistis 
+const selectStatistis = document.querySelector("[select-statistis]");
+if(selectStatistis){
+    selectStatistis.addEventListener("change",() =>{
+        const value = selectStatistis.value;
+        if(!value){
+            return; 
+        }
+        const [statistis,date] = value.split("-");
+        url.searchParams.set(statistis,date);
+
+        window.location.href = url.href;
+    })
+}
+
+//end statistis

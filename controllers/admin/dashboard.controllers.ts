@@ -7,6 +7,8 @@ import Follow from '../../models/follow.model';
 import Comment from '../../models/comment.model';
 //require helper here
 import { totalListen } from '../../helpers/Calculate.helper';
+//require untils here
+import { getDate } from '../../utils/date.until';
 //[GET] "/admin/dashboard"
 export const index = async (req: Request, res: Response) :Promise<void>=>{ 
     // Statistis
@@ -31,33 +33,62 @@ export const index = async (req: Request, res: Response) :Promise<void>=>{
 
     }
     interface Find {
-        status?: ('active' | 'inactive'),
-        deleted?: boolean
+        [key: string]: any
+    }
+    const date= req.query.statistis;
+    const find: Find = {};
+    if(typeof date === 'string'){
+        switch (date) {
+            case "day":
+                find.createdAt = {
+                    $gte: getDate(date).start,
+                    $lte: getDate(date).end,
+                };
+            break;
+            case "week":
+                find.createdAt = {
+                    $gte: getDate(date).start,
+                    $lte: getDate(date).end,
+                };
+            break;
+            case "month": 
+                find.createdAt = {
+                    $gte: getDate(date).start,
+                    $lte: getDate(date).end,
+                };
+                break;
+            case "year": 
+                find.createdAt = {
+                    $gte: getDate(date).start,
+                    $lte: getDate(date).end,
+                };
+                break;
+        }
     }
     const statistis: Statistis = {
         user: {
-            total: await User.countDocuments({ deleted: false }),
-            active: await User.countDocuments({ status: "active", deleted: false }),
-            inactive: await User.countDocuments({ status: "inactive", deleted: false }),
-            deleted: await User.countDocuments({ deleted: true })
+            total: await User.countDocuments({ ...find,deleted: false }),
+            active: await User.countDocuments({...find, status: "active", deleted: false }),
+            inactive: await User.countDocuments({...find, status: "inactive", deleted: false }),
+            deleted: await User.countDocuments({ ...find,deleted: true })
         },
         song: {
-            total: await Song.countDocuments({ deleted: false }),
-            active: await Song.countDocuments({ status: "active", deleted: false }),
-            inactive: await Song.countDocuments({ status: "inactive", deleted: false }),
-            deleted: await Song.countDocuments({ deleted: true })
+            total: await Song.countDocuments({ ...find,deleted: false }),
+            active: await Song.countDocuments({ ...find,status: "active", deleted: false }),
+            inactive: await Song.countDocuments({...find, status: "inactive", deleted: false }),
+            deleted: await Song.countDocuments({ ...find,deleted: true })
         },
         singer: {
-            total: await Singer.countDocuments({ deleted: false }),
-            active: await Singer.countDocuments({ status: "active", deleted: false }),
-            inactive: await Singer.countDocuments({ status: "inactive", deleted: false }),
-            deleted: await Singer.countDocuments({ deleted: true })
+            total: await Singer.countDocuments({ ...find,deleted: false }),
+            active: await Singer.countDocuments({ ...find,status: "active", deleted: false }),
+            inactive: await Singer.countDocuments({...find, status: "inactive", deleted: false }),
+            deleted: await Singer.countDocuments({...find,deleted: true })
         },
         interact: {
             listen: await totalListen(req),
-            like: await Like.countDocuments(),
-            follows: await Follow.countDocuments(),
-            comments: await Comment.countDocuments()
+            like: await Like.countDocuments({...find}),
+            follows: await Follow.countDocuments({...find}),
+            comments: await Comment.countDocuments({...find})
         }
     }
     //end Statistis 

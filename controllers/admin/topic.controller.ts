@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import Topic from '../../models/topics.model';
 import Song from '../../models/song.model';
 //require helper
-import { btnStatus } from './../../helpers/status.helper';
+import { btnStatus } from './../../helpers/filter.helper';
 export const index = async (req: Request, res: Response) :Promise<void>  =>{
     const listBtn = btnStatus(req);
     const topics = await Topic.find({
