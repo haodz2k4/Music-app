@@ -38,6 +38,20 @@ app.use(json());
 //connect database here
 import {connectDB} from './config/database';
 connectDB();
+//socket
+import { createServer, Server as HTTPServer } from 'http';
+import { Server as SocketIOServer } from 'socket.io';
+
+
+const httpServer: HTTPServer = createServer(app);
+const io: SocketIOServer = new SocketIOServer(httpServer); 
+
+declare global {
+    var _io: SocketIOServer;
+}
+  
+global._io = io;
+//end socket 
 //end connect
 import {config} from 'dotenv';
 config();

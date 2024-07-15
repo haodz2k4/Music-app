@@ -290,3 +290,35 @@ if(btnLogout){
     })
 }
 
+
+// Area Chart Example
+var ctx = document.getElementById('areaChart')?.getContext('2d');
+var areaChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['Mar 1', 'Mar 3', 'Mar 5', 'Mar 7', 'Mar 9', 'Mar 11', 'Mar 13'],
+        datasets: [{
+            label: 'Example Dataset',
+            data: [10000, 20000, 15000, 30000, 25000, 35000, 40000],
+            backgroundColor: 'rgba(0, 123, 255, 0.5)',
+            borderColor: 'rgba(0, 123, 255, 1)',
+            fill: true
+        }]
+    }
+});
+
+// Bar Chart Example
+var ctx2 = document.getElementById('barChart')?.getContext('2d');
+var barChart = new Chart(ctx2, {
+    type: 'bar',
+    data: {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+        datasets: [{
+            label: 'Example Dataset',
+            data: [5000, 10000, 7500, 12000, 9000, 15000],
+            backgroundColor: 'rgba(0, 123, 255, 1)',
+            borderColor: 'rgba(0, 123, 255, 1)',
+            fill: true
+        }]
+    }
+});

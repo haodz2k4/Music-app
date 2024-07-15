@@ -2,77 +2,97 @@ extends ../../layouts/default.pug
 
 
 block main 
-        h1.text-center(style='margin: 20px; font-family: Arial, Helvetica, sans-serif;font-weight: 700') Qu&#x1EA3;n l&yacute; s&aacute;ch v&#x1EDF;
-        .container
-          .row.justify-content-between.tool-bar
-            // Search Bar
-            .col-md-4
-              h5 T&igrave;m ki&#x1EBF;m
-              form(form-search='')
-                .input-group
-                  input.form-control(type='text', placeholder='Tìm kiếm')
-                  button.btn.btn-outline-secondary(type='submit')
-                    i.fa-solid.fa-magnifying-glass
-            // Filter
-            .col-md-4
-              h5 B&#x1ED9; l&#x1ECD;c
-              .btn-group(role='group', aria-label='Filter')
-                button.btn.btn-outline-info.active(type='button', btn-filter-status='') T&#x1EA5;t c&#x1EA3;
-                button.btn.btn-outline-info(type='button', btn-filter-status='active')  Ho&#x1EA1;t &dstrok;&#x1ED9;ng
-                button.btn.btn-outline-info(type='button', btn-filter-status='inactive')  Kh&ocirc;ng ho&#x1EA1;t &dstrok;&#x1ED9;ng
-            // Select Option
-            .col-md-4
-              h5 Thay &dstrok;&#x1ED5;i nhi&#x1EC1;u s&#x1EA3;n ph&#x1EA9;m
-              form(form-change-multi='')
-                .d-flex.align-items-center
-                  select.form-select.custom-select.my-custom.me-2(name='changeMulti', style='width: auto; background-color: #3b7ec6; /* Màu xanh dương đậm */\
-                  color: white;\
-                  border: 1px solid #0056b3;\
-                  border-radius: 0.25rem;\
-                  padding: 0.375rem 1.75rem 0.375rem 0.75rem;', aria-label='Default select example')
-                    option(selected='') L&#x1EF1;a Ch&#x1ECD;n &#x1EDE; &Dstrok;&acirc;y
-                    option(value='status-active') Ho&#x1EA1;t &dstrok;&#x1ED9;ng
-                    option(value='status-inactive') Kh&ocirc;ng ho&#x1EA1;t &dstrok;&#x1ED9;ng
-                    option(value='position') Thay &dstrok;&#x1ED5;i v&#x1ECB; tr&iacute;
-                    option(value='deleted-true') X&oacute;a
-                  button.btn.btn-danger(type='submit') &Aacute;p d&#x1EE5;ng
-            // Add Button
-            .col-md-4
-              h5 Th&ecirc;m s&#x1EA3;n ph&#x1EA9;m
-              a.btn.btn-warning(href='./create.html', style='background-color: #5a7ad3; color: white;')
-                i.fa-solid.fa-plus
-                |  Th&ecirc;m
-            .col-md-4
-              h5 X&#x1EBF;p theo ti&ecirc;u ch&iacute;
-              select.form-select.custom-select(name='sorted', aria-label='Default select example')
-                option(selected='', value='') S&#x1EAF;p x&#x1EBF;p theo
-                option(value='title-asc') T&ecirc;n A-Z
-                option(value='title-desc') T&ecirc;n Z-A
-                option(value='price-asc') Gi&aacute; ti&#x1EC1;n Cao -&gt; th&#x1EA5;p
-                option(value='price-desc') Gi&aacute; ti&#x1EC1;n Th&#x1EA5;p -&gt; Cao
-                option(value='position-asc') V&#x1ECB; tr&iacute; cao -&gt; Th&#x1EA5;p
-                option(value='position-desc') V&#x1ECB; tr&iacute; Th&#x1EA5;p -&gt; Cao
-            // Additional Buttons
-            .col-md-4
-              h5 Th&ugrave;ng r&aacute;c
-              button.btn.btn-secondary.position-relative(type='button', btn-garbage='hide')
-                i.fa-solid.fa-trash 
-                |  Xem Th&ugrave;ng R&aacute;c
-                span.position-absolute.top-0.start-100.translate-middle.badge.rounded-pill.bg-danger(show-count-trash='')
-                  | 0
-                  span.visually-hidden   
-          
-        table.table(table-books='')
+    .container.mt-5
+      h1.mb-4 Trang Quản Trị 
+      .row
+        .col-md-3
+          .card.text-white.bg-primary.card-custom
+            .card-body
+              h5.card-title Người Dùng
+              ul 
+                li Tất cả: 
+                  strong #{statistis.user.total}
+                li Hoạt động: 
+                  strong #{statistis.user.active}
+                li Không hoạt động 
+                  strong #{statistis.user.inactive}
+                li Đã Xóa 
+                  strong #{statistis.user.deleted}
+        .col-md-3
+          .card.text-white.bg-warning.card-custom
+            .card-body
+              h5.card-title Bài hát 
+              ul 
+                li Tất cả: 
+                  strong #{statistis.song.total}
+                li Hoạt động: 
+                  strong #{statistis.song.active}
+                li Không hoạt động 
+                  strong #{statistis.song.inactive} 
+                li Đã xóa  
+                  strong #{statistis.song.deleted} 
+                
+        .col-md-3
+          .card.text-white.bg-success.card-custom
+            .card-body
+              h5.card-title Ca sĩ 
+              ul 
+                li Tất cả: 
+                  strong #{statistis.singer.total}
+                li Hoạt động: 
+                  strong #{statistis.singer.active}
+                li Không hoạt động 
+                  strong #{statistis.singer.inactive} 
+                li Đã xóa  
+                  strong #{statistis.singer.deleted}
+        .col-md-3
+          .card.text-white.bg-danger.card-custom
+            .card-body
+              h5.card-title Tương tác 
+              ul 
+                li Số lượt nghe: 
+                  strong #{statistis.interact.listen}
+                li Số Lượt thích: 
+                  strong #{statistis.interact.like}
+                li Số lượt Theo dõi  
+                  strong #{statistis.interact.follows} 
+                li Số Lượt Bình Luận 
+                  strong #{statistis.interact.comments}
+      .row
+        .col-md-6
+          .card.card-custom
+            .card-header Area Chart Example
+            .card-body
+              canvas#areaChart
+        .col-md-6
+          .card.card-custom
+            .card-header Bar Chart Example
+            .card-body
+              canvas#barChart
+      .card.card-custom
+        .card-header Danh sách người dùng 
+        .card-body
+          table.table.table-striped
             thead
-            tr
-                th
-                    input(type='checkbox', name='check-all', id='')
+              tr
                 th #
-                th Ti&ecirc;u &dstrok;&#x1EC1;
-                th &#x1EA2;nh
-                th V&#x1ECB; tr&iacute;
-                th Tr&#x1EA1;ng th&aacute;i
-                th Gi&aacute; ti&#x1EC1;n
-                th T&#x1EA1;o b&#x1EDF;i
-                th Thao t&aacute;c
+                th Họ và tên 
+                th avatar
+                th Email 
+                th Đăng ký vào 
+                th Trạng thái 
+                th Chi tiết 
             tbody
+              each item, index in users
+                tr
+                  td #{index + 1}
+                  td #{item.fullName}
+                  td 
+                    img(src=item.avatar, alt="" style='width: 50px; height: 50px')
+                  td #{item.email}
+                  td #{moment(item.createdAt).format('MMMM Do YYYY, h:mm:ss a')}
+                  td 
+                    span(class=`${item.status === "active" ? 'badge rounded-pill text-bg-success' : 'badge rounded-pill text-bg-danger'}` btn-change-status=item.id status=item.status) #{item.status} 
+                  td 
+                    button.btn.btn-primary Chi tiết 
+              

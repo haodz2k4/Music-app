@@ -31,8 +31,13 @@ html(lang="en")
       // Page content
       .container-fluid
         block main 
+    script(src='/socket.io/socket.io.js')
+    script.
+      var socket = io();
+    script(src='https://cdn.jsdelivr.net/npm/chart.js')
     script(type='application/javascript', src='/tinymce/tinymce.min.js')
     // Script element sourcing the TinyMCE configuration
     script(type='application/javascript', src='/admin/js/my-tinymce-config.js') 
     script(src="/admin/js/script.js") 
+    
 
