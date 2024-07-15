@@ -36,7 +36,11 @@
     li.nav-item
       a.nav-link(href=`/${prefixAdmin}/settings/general` class=`${activePages === 'settings-general' ? 'active' : ''}`)
         i.fa-solid.fa-gear
-        |  Cài đặt chung 
+        |  Cài đặt chung  
+    li.nav-item
+      a.nav-link(href=`/${prefixAdmin}/chats` class=`${activePages === 'chats' ? 'active' : ''}`)
+        i.fa-regular.fa-message
+        |  Nhắn tin
   .bottom-section(style='margin-top: 30px;')
     hr
     ul.nav.flex-column

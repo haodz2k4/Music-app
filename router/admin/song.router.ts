@@ -19,7 +19,7 @@ router.post("/add",checkPermission('song_create'),uploadFields,uploadFile,valida
 router.patch("/change-multi",checkPermission('song_edit'),controller.changeMulti);
 router.get("/detail/:id",checkPermission('song_view'),controller.detail);
 router.get("/edit/:id",checkPermission('song_edit'),controller.edit);
-router.patch("/edit/:id",checkPermission('song_edit'),validate.editSong,uploadFields,uploadFile,controller.editPatch);
+router.patch("/edit/:id",checkPermission('song_edit'),uploadFields,uploadFile,validate.editSong,controller.editPatch);
 router.patch("/deleted/:id",checkPermissionApi('song_delete'),controller.deleted);
 router.patch("/change-status/:status/:id",checkPermissionApi('song_edit'),controller.changeStatus);
 export default router;

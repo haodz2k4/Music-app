@@ -1,0 +1,21 @@
+extends ../../layouts/default.pug 
+
+block main 
+    .container.mt-4
+      .chat-window
+        .messages
+          .message
+            .avatar
+              img(src='https://via.placeholder.com/40', alt='Avatar')
+            .content
+              .name Nguyen Van A
+              | Hello!
+          .message.user
+            .content
+              .name You
+              | Hi there!
+            .avatar
+              img(src='https://via.placeholder.com/40', alt='Avatar')
+        .message-input
+          input(type='text', placeholder='Type your message...')
+          button Send

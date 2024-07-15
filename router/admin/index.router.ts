@@ -10,6 +10,7 @@ import singerRouter from './singer.router';
 import userRouter from './user.router';
 import myAccountRouter from './my-account.router';
 import settingGeneralRouter from './settings.router';
+import chatRouter from './chat.router';
 import system from '../../config/system';
 const prefixAdmin: string = system.prefixAdmin;
 //require middleware
@@ -25,6 +26,7 @@ export default (app: Express) =>{
     app.use(`/${prefixAdmin}/users`,requireAuth, userRouter);
     app.use(`/${prefixAdmin}/my-account`,requireAuth, myAccountRouter);
     app.use(`/${prefixAdmin}/settings`,requireAuth, settingGeneralRouter);
+    app.use(`/${prefixAdmin}/chats`,requireAuth, chatRouter);
     app.use(`/${prefixAdmin}/auth/`,authRouter)
 
 }
