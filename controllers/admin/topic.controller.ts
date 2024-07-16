@@ -30,8 +30,30 @@ export const deleted = async (req: Request, res: Response) :Promise<void> =>{
             res.status(404).json({success: false, message: "Chủ đề không tồn tại"});
             return;
         }
-        res.status(200).json({success: true, message: "Xóa sản phẩm thành công"})
+        res.status(200).json({success: true, message: "Xóa sản phẩm thành công",topic})
     } catch (error) {
         res.status(500).json({success: false, message: "Lỗi Không xác định", error: error})
     }
 } 
+//[PATCH] "/admin/topics/change-status/:status/:id"
+export const changeStatus = async (req: Request, res: Response) :Promise<void>  =>{
+    const id = req.params.id;
+    const status = req.params.status;
+    if(!["active","inactive"].includes(status)){
+        res.status(400).json({success: false, message: "Trạng thái không hợp lệ"});
+        return;
+    }
+    try {
+        const topic = await Topic.findByIdAndUpdate(id, {status: status}, {new: true});
+
+        if(!topic){
+            res.status(404).json({success: false, message: "Chủ đề không tồn tại"});
+            return;
+        }
+
+        res.status(200).json({success: true, message: "Thay đổi trạng thái thành công", status: status})
+
+    } catch (error) {
+        res.status(500).json({success: false, message: "Lỗi Không xác định", error: error})
+    }
+}

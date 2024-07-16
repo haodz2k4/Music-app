@@ -181,7 +181,7 @@ if(btnChangeStatus.length > 0){
                     item.setAttribute("status",data.status)
                 }
             }else{
-                alert("Cập nhật trạng thái thất bại")
+                alert("Cập nhật trạng thái thất bại: " + data.message)
             }
 
 
