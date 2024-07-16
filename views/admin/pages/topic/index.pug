@@ -88,7 +88,7 @@ block main
                 td Admin
                 td 
                   .btn-group(role='group', aria-label='Basic mixed styles example')
-                    button.btn.btn-danger(type='button') 
+                    button.btn.btn-danger(type='button' btn-deleted=item.id) 
                       i.fa-solid.fa-trash 
                       |  Xóa 
                     button.btn.btn-warning(type='button')
@@ -96,4 +96,5 @@ block main
                       |  Sửa  
                     button.btn.btn-secondary(type='button') 
                       i.fa-solid.fa-magnifying-glass  
-                      |  Chi tiết 
+                      |  Chi tiết  
+        div(path-deleted=`/${prefixAdmin}/topics/deleted`)
