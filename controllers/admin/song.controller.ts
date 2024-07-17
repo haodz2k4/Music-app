@@ -8,6 +8,7 @@ import Account from '../../models/accounts.model';
 //require helper here
 import { btnStatus } from "../../helpers/filter.helper";
 import { listSort } from "../../helpers/sort.helper";
+import {getPagination, skipPagination} from '../../helpers/pagination.helper';
 //[GET] "/admin/songs"
 export const index = async (req: Request, res: Response): Promise<void> => {
     interface Find {
@@ -41,8 +42,18 @@ export const index = async (req: Request, res: Response): Promise<void> => {
     const validKeysort: string[] = ['title', 'listen', 'date']
     const sort = listSort(req, validKeysort);
     // end sort 
+    //pagination 
+    const pagination = await getPagination(6,Song);
 
-    const songs = await Song.find(Find).sort(sort);
+    const pages = req.query.pages;
+    if(typeof pages === 'string'){ 
+        pagination.currentPage = parseInt(pages);
+        pagination.skip = skipPagination(pagination.currentPage )
+    }
+    //end pagination 
+    
+
+    const songs = await Song.find(Find).sort(sort).limit(pagination.limit).skip(pagination.skip);
     //add filed likes 
     for(const item of songs){
         item.likes = await Like.countDocuments({
@@ -59,6 +70,7 @@ export const index = async (req: Request, res: Response): Promise<void> => {
         pageTitle: 'Quản lý bài hát',
         songs,
         listBtn,
+        pagination
     });
 };
 

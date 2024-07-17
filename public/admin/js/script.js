@@ -386,4 +386,19 @@ if(selectStatistis){
     })
 }
 
-//end statistis
+//end statistis 
+
+//pagination 
+const btnPagination = document.querySelectorAll("[btn-pagination]");
+if(btnPagination.length > 0){
+    btnPagination.forEach((item) =>{
+        item.addEventListener("click",() =>{
+            const index = item.getAttribute("btn-pagination");
+            url.searchParams.set("pages", index);
+
+            window.location.href = url.href;
+        })
+    })
+}
+
+//end pagination

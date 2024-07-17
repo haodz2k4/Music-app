@@ -79,7 +79,7 @@ block main
                 tr(item-id=item.id)
                     td 
                       input(type='checkbox', name='ids', id='' value=item.id) 
-                    td #{index + 1}
+                    td #{index + pagination.skip + 1}
                     td #{item.title} 
                     td 
                       img(src=item.avatar, alt="", style='width: 100px; height: 100px')
@@ -102,6 +102,15 @@ block main
                         a.btn.btn-danger(btn-deleted=item.id)
                             i.fa-solid.fa-trash 
                             |  Xóa 
-                      
+        .container.mt-5
+          nav(aria-label='Page navigation example')
+            ul.pagination.justify-content-center
+              li.page-item( class=(pagination.currentPage === 1 ? 'disabled' : ''))
+                button.page-link( btn-pagination=pagination.currentPage-1 tabindex='-1') Previous 
+              - for (let i = 1; i <= pagination.countPage; i++)
+                li.page-item
+                  button.page-link(class=(pagination.currentPage === i ? 'active' : "") btn-pagination=i) #{i}
+              li.page-item( class=(pagination.currentPage === pagination.countPage ? 'disabled' : ''))
+                button.page-link(btn-pagination=pagination.currentPage+1) Next              
 
         div(path-deleted=`/${prefixAdmin}/songs/deleted`    path-change-status=`/${prefixAdmin}/songs/change-status`).d-none
