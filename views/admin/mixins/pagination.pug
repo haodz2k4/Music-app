@@ -1,0 +1,11 @@
+mixin pagination(pagination) 
+    .container.mt-5
+          nav(aria-label='Page navigation example')
+            ul.pagination.justify-content-center
+              li.page-item( class=(pagination.currentPage === 1 ? 'disabled' : ''))
+                button.page-link( btn-pagination=pagination.currentPage-1 tabindex='-1') Previous 
+              - for (let i = 1; i <= pagination.countPage; i++)
+                li.page-item
+                  button.page-link(class=(pagination.currentPage === i ? 'active' : "") btn-pagination=i) #{i}
+              li.page-item( class=(pagination.currentPage === pagination.countPage ? 'disabled' : ''))
+                button.page-link(btn-pagination=pagination.currentPage+1) Next 
