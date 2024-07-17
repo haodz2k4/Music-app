@@ -2,7 +2,39 @@ const url = new URL(window.location.href);
 
 //handle keyword
 const formSearch = document.querySelector("[form-search]");
-if(formSearch){
+if(formSearch){ 
+    formSearch.addEventListener("keydown",async () =>{ 
+        const value = formSearch.querySelector("input").value;
+        const response = await fetch(`${url.href}/suggestion?keyword=${value}`);
+        const data = await response.json();
+        const suggestion = document.querySelector(".suggestions-container ul");
+        let songs = "";
+        for(const item of data.songs){ 
+            const li = document.createElement("li");
+            li.classList.add("list-group-item");
+            li.setAttribute("id",item._id)
+            li.innerHTML = `
+                <img src=${item.avatar} alt="Avatar" class="avatar img-suggestion">
+                <span class="product-name">${item.title}</span>
+            `
+            songs += li.outerHTML
+        }
+        suggestion.innerHTML = songs;
+
+        //enter suggestion 
+        const listSuggestion = document.querySelectorAll(".list-group-item");
+        if(listSuggestion.length > 0){
+            for(const item of listSuggestion){
+                item.addEventListener("click",() =>{
+                   const id = item.getAttribute("id");
+                   window.location.href = `${url.href}/detail/${id}`
+                })
+            }
+        }
+
+        //end enter suggestion
+        
+    })
     formSearch.addEventListener("submit",(e) =>{
         e.preventDefault();
         const inp = formSearch.querySelector("input");
@@ -16,7 +48,23 @@ if(formSearch){
         
     })
 }
-//end handle keyword
+//enter suggestion 
+const listSuggestion = document.querySelectorAll(".list-group-item");
+if(listSuggestion.length > 0){
+    listSuggestion.forEach((item),() =>{
+        item.addEventListener("click",() =>{
+            const inp = formSearch.querySelector("input"); 
+            const title = item.querySelector("span").innerHTML;
+            inp.value = title;
+
+            formSearch.submit();
+        })
+    })
+}
+
+//end enter suggestion
+//end handle keyword 
+
 //handle filter here
 const btnFilterStatus = document.querySelectorAll("[btn-filter-status]");
 if(btnFilterStatus.length > 0){
@@ -401,4 +449,4 @@ if(btnPagination.length > 0){
     })
 }
 
-//end pagination
+//end pagination 

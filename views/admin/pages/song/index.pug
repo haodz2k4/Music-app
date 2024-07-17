@@ -11,11 +11,13 @@ block main
             // Search Bar
             .col-md-4
               h5 T&igrave;m ki&#x1EBF;m
-              form(form-search)
+              form(form-search='form-search')
                 .input-group
-                  input.form-control(type='text', placeholder='Tìm kiếm', name='keyword' value=keyword)
+                  input.form-control(type='text', placeholder='Tìm kiếm', name='keyword')
                   button.btn.btn-outline-secondary(type='submit')
                     i.fa-solid.fa-magnifying-glass
+                .suggestions-container
+                  ul.list-group 
             // Filter
             .col-md-4
               h5 B&#x1ED9; l&#x1ECD;c 

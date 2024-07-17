@@ -238,3 +238,30 @@ export const changeStatus = async (req: Request, res: Response) :Promise<void>  
         res.status(400).json({success: false, message: "Cập nhật thất bại"});
     }
 }
+//[GET] "/admin/songs/suggestion"
+export const suggestion = async (req: Request, res: Response) :Promise<void> =>{
+
+    
+    interface Find {
+        deleted: boolean;
+        status?: string;
+        title?: RegExp;
+    }
+    //search
+    const Find: Find = {
+        deleted: false,
+    };
+    const keyword = req.query.keyword;
+    if (typeof keyword === 'string') {
+        const regrex: RegExp = new RegExp(keyword);
+        Find.title = regrex;
+    }   
+
+    try {
+        const songs = await Song.find(Find).limit(5).select("title avatar");
+        res.status(200).json({success: true, songs})
+    } catch (error) {
+        res.status(500).json({success: false, message: "Lỗi không xác định"})
+    }
+    
+}
