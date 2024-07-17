@@ -94,45 +94,23 @@ export const addPost = async (req: Request, res: Response) :Promise<void>  =>{
         res.render("")
     }
 }
-//[PATCH] "/admin/songs/change-multi"
+//[PATCH] "/admin/songs/change-multi/:type" (api)
 export const changeMulti = async (req: Request, res: Response) :Promise<void>  =>{
-    const status = req.body.status;
-    const ids = req.body.ids.split("-");
-    
-    const account = res.locals.account;
-    switch(status) {
-        case "active": 
-            await Song.updateMany({
-                _id: {$in: ids}
-            },{
-                status: status,
-                updatedBy: account.id
-            }) 
-            req.flash('success_msg','Cập nhật trạng thái thành công') 
-            break;
-        case "inactive":
-            await Song.updateMany({
-                _id: {$in: ids}
-            },{
-                status: status,
-                updatedBy: account.id
-            })
-            req.flash('success_msg','Cập nhật trạng thái thành công') 
-            break;
-        case "deleted":
-            await Song.updateMany({
-                _id: {$in: ids}
-            },{
-                deleted: true,
-                updatedBy: account.id
-            })
-            req.flash('success_msg','Xóa các sản phẩm thành công')
-            break;
-        default:
-            req.flash('error_msg','Trạng thái không hợp lệ')
-
+    const type = req.params.type;
+    const ids = req.body.ids;
+    const [key, value] = type.split("-"); 
+    const list: any[] = [];
+    for(const item of ids){
+        const song = await Song.findByIdAndUpdate(item,{[key]: value},{new: true}).select("status deleted");
+        list.push(song)
+        if(!song){
+            res.status(404).json({success: true, message: `bài hát có id: ${item} không tồn tại`,songs: list});
+            return;
+        }
     }
-    res.redirect("back");
+    res.status(200).json({success: true, message: "Cập nhật thành công", songs: list})
+    
+    
 }
 //[GET] "/admin/songs/detail/:id"
 export const detail = async (req: Request, res: Response) :Promise<void> =>{

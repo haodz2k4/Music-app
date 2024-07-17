@@ -63,21 +63,64 @@ if(table){
 
 //end checked
 //change multi 
-const formChangeMulti = document.querySelector("[form-change-multi]");
-if(formChangeMulti){
-    formChangeMulti.addEventListener("submit",(e) =>{
-        e.preventDefault();
-        const inpIds = formChangeMulti.querySelector("input[name='ids']");
-
-        const checkMulti = table.querySelectorAll("tbody tr td input[name='ids']:checked");
-        const listId = [];
-        for(const item of checkMulti){
-            listId.push(item.value);
+const changeMulti = document.querySelector("select[name='change-multi']");
+if (changeMulti) {
+    changeMulti.addEventListener("change", async () => {
+        const type = changeMulti.value;
+        const checkMulti = document.querySelectorAll("input[name='ids']:checked"); 
+        const ids = []; 
+        if(checkMulti.length < 1){
+            alert("Vui lòng chọn 1 bản ghi");
+            return;
         }
-        inpIds.value = listId.join("-");
-        formChangeMulti.submit();
 
-    })
+        for (const item of checkMulti) {
+            const id = item.value; 
+            item.checked = false 
+            ids.push(id);
+        }
+
+        const action = {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ ids: ids })
+        };
+
+        const link = `${url.href}/change-multi/${type}`;
+        
+        try {
+            const response = await fetch(link, action);
+            
+            const data = await response.json();
+            if(response.status === 404){
+                alert(data.message);
+            }
+            if(data.success || response.status === 404){
+                alert("Thay đổi trạng thái thành công");
+                changeMulti.querySelectorAll("option")[0].selected = true;
+                for(const item of data.songs){
+                    if(item.deleted){
+                        const tr = document.querySelector(`[item-id="${item._id}"]`);
+                        tr.classList.add("d-none")
+                    }
+                    const btnChangeStatus = document.querySelector(`[btn-change-status="${item._id}"]`);
+                    btnChangeStatus.innerHTML = item.status;
+                    if(item.status === "active"){ 
+                        btnChangeStatus.classList.remove("text-bg-danger")
+                        btnChangeStatus.classList.add("text-bg-success");
+                    }else{
+                        btnChangeStatus.classList.remove("text-bg-success")
+                        btnChangeStatus.classList.add("text-bg-danger");
+                    }
+
+                }
+            }
+        } catch (error) {
+            console.error('Fetch error:', error);
+        }
+    });
 }
 //end change multi 
 

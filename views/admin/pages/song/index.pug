@@ -25,18 +25,16 @@ block main
             // Select Option
             .col-md-4
               h5 Thay &dstrok;&#x1ED5;i nhi&#x1EC1;u s&#x1EA3;n ph&#x1EA9;m
-              form(form-change-multi action="/admin/songs/change-multi?_method=PATCH" method="POST")
-                input(type="text", name="ids",).d-none 
-                .d-flex.align-items-center
-                  select.form-select.custom-select.my-custom.me-2(name='status', style='width: auto; background-color: #3b7ec6; /* Màu xanh dương đậm */\
+              .d-flex.align-items-center
+                  select.form-select.custom-select.my-custom.me-2(name='change-multi', style='width: auto; background-color: #3b7ec6; /* Màu xanh dương đậm */\
                   color: white;\
                   border: 1px solid #0056b3;\
                   border-radius: 0.25rem;\
                   padding: 0.375rem 1.75rem 0.375rem 0.75rem;', aria-label='Default select example')
                     option(selected='') Lựa chọn 
-                    option(value='active') Hoạt động 
-                    option(value='inactive') Không hoạt động 
-                    option(value='deleted') Xóa 
+                    option(value='status-active') Hoạt động 
+                    option(value='status-inactive') Không hoạt động 
+                    option(value='deleted-true') Xóa 
                   button.btn.btn-danger(type='submit') Áp dụng 
             // Add Button
             .col-md-4
@@ -78,7 +76,7 @@ block main
                 th Thao tác
             tbody
               each item, index in songs
-                tr 
+                tr(item-id=item.id)
                     td 
                       input(type='checkbox', name='ids', id='' value=item.id) 
                     td #{index + 1}

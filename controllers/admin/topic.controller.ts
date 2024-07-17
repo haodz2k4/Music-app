@@ -57,3 +57,4 @@ export const changeStatus = async (req: Request, res: Response) :Promise<void>  
         res.status(500).json({success: false, message: "Lỗi Không xác định", error: error})
     }
 }
+//[PATCH] "/admin/topics/change-multi/"
