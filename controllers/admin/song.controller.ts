@@ -46,11 +46,16 @@ export const index = async (req: Request, res: Response): Promise<void> => {
     const pagination = await getPagination(6,Song);
 
     const pages = req.query.pages;
+    const limit = req.query.limit;
+    if(typeof limit === 'string'){
+        pagination.limit = parseInt(limit);
+    }
     if(typeof pages === 'string'){ 
         pagination.currentPage = parseInt(pages);
         pagination.skip = skipPagination(pagination.currentPage )
     }
     //end pagination 
+    
     
 
     const songs = await Song.find(Find).sort(sort).limit(pagination.limit).skip(pagination.skip);
@@ -264,4 +269,38 @@ export const suggestion = async (req: Request, res: Response) :Promise<void> =>{
         res.status(500).json({success: false, message: "Lỗi không xác định"})
     }
     
+}
+//[GET] "/admin/songs/garbages"
+export const garbages = async (req: Request, res: Response) :Promise<void> =>{
+    
+    const songs = await Song.find({
+        deleted: true
+    })
+    for(const item of songs){
+        item.likes = await Like.countDocuments({
+            songId: item.id
+        })
+        item.createdBy = (await Account.findOne({
+            _id: item.createdBy
+        }))?.fullName
+    }
+    res.render("admin/pages/song/garbage.pug",{
+        activePages: 'songs',
+        songs
+    })
+}
+//[PATCH] '/admin/songs/garbages/restores/:id'
+export const restore = async (req: Request, res: Response) :Promise<void>=>{
+    
+    const id = req.params.id;
+    try {
+        const song = await Song.findByIdAndUpdate(id, {deleted:false}).select("deleted title");
+        if(!song){
+            res.status(404).json({success: false, message: `Không tìm thấy bài hát có id: ${id}`});
+            return;
+        }
+        res.status(200).json({success: true, message: "Khôi phục sản phẩm thành công", song})
+    } catch (error) {
+        res.status(500).json({success: false, message: "Khôi phục sản phẩm thất bại", error})
+    }
 }

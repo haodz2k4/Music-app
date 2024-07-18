@@ -22,5 +22,7 @@ router.get("/edit/:id",checkPermission('song_edit'),controller.edit);
 router.patch("/edit/:id",checkPermission('song_edit'),uploadFields,uploadFile,validate.editSong,controller.editPatch);
 router.patch("/deleted/:id",checkPermissionApi('song_delete'),controller.deleted);
 router.patch("/change-status/:status/:id",checkPermissionApi('song_edit'),controller.changeStatus);
-router.get("/suggestion",checkPermission('song_view'),controller.suggestion)
+router.get("/suggestion",checkPermission('song_view'),controller.suggestion);
+router.get("/garbages",checkPermission('song_view'),controller.garbages);
+router.patch("/garbages/restores/:id",checkPermission('song_edit'),controller.restore);
 export default router;

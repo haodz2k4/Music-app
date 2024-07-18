@@ -1,0 +1,59 @@
+extends ../../layouts/default.pug 
+include ../../mixins/show-alert.pug 
+block main 
+        h1.text-center(style='margin: 20px; font-family: Arial, Helvetica, sans-serif;font-weight: 700') Bài hát  
+          i.fa-solid.fa-music
+        .container
+          +alertSuccess(success_msg)
+          +alertError(error_msg)
+          .row.justify-content-between.tool-bar
+            // Search Bar
+            .col-md-4
+              h5 T&igrave;m ki&#x1EBF;m
+              form(form-search='form-search')
+                .input-group
+                  input.form-control(type='text', placeholder='Tìm kiếm', name='keyword' value=keyword)
+                  button.btn.btn-outline-secondary(type='submit')
+                    i.fa-solid.fa-magnifying-glass
+                .suggestions-container
+                  ul.list-group 
+            .col-md-4
+              h5 Sắp xếp theo 
+              select.form-select.custom-select(name='sorted', aria-label='Default select example')
+                option(value='createdAt-asc') Ngày Xóa Mới Nhất 
+                option(value='createdAt-desc') Ngày Xóa Lâu Nhất 
+                option(value='listen-asc') Lượt nghe Thấp -> Cao 
+                option(value='listen-desc') Lượt nghe cao -> thấp  
+            // Additional Buttons 
+            
+        table.table(table-garbages)
+            thead
+              tr
+                th #
+                th Tiêu đề 
+                th Ảnh 
+                th Lượt nghe 
+                th Lượt Thích  
+                th Trạng thái 
+                th Tạo vào 
+                th Người tạo 
+                th Thao tác
+            tbody
+              each item, index in songs
+                tr(item-id=item.id)
+                    td #{index + 1}
+                    td #{item.title} 
+                    td 
+                      img(src=item.avatar, alt="", style='width: 100px; height: 100px')
+                    td
+                      strong #{item.listen} 
+                    td 
+                      strong #{item.likes}
+                    td 
+                      span(class=`${item.status === "active" ? 'badge rounded-pill text-bg-success' : 'badge rounded-pill text-bg-danger'}` btn-change-status=item.id status=item.status) #{item.status} 
+                    td #{moment(item.updatedAt).format('MMMM Do YYYY, h:mm:ss a')} 
+                    td #{item.createdBy}
+                    td 
+                      button.btn.btn-info(btn-restore=item.id)
+                        i.fa-solid.fa-window-restore 
+                        |  Khôi phục 

@@ -450,3 +450,49 @@ if(btnPagination.length > 0){
 }
 
 //end pagination 
+//limit 
+const selectLimit = document.querySelector("select[name='limit']");
+if(selectLimit){
+    selectLimit.addEventListener("change",() =>{
+        const value = selectLimit.value;
+        if(value){
+            url.searchParams.set("limit",value);
+        }else{
+            url.searchParams.delete("limit");
+        }
+        window.location.href = url.href
+    })
+}
+
+//end limit 
+//btn restore 
+const btnRestore = document.querySelectorAll("[btn-restore]");
+console.log(btnRestore)
+if(btnRestore.length > 0){
+    btnRestore.forEach( (item) =>{
+        item.addEventListener("click", async () =>{ 
+            const isConfrim = confirm("Bạn có muốn khôi phục sản phẩm này không");
+            if(!isConfrim){
+                return;
+            }
+            const id = item.getAttribute("btn-restore"); 
+            const path = `${url.href}/restores/${id}`;
+            console.log(path)
+            const action = {
+                method: "PATCH"
+            }
+
+            const response = await fetch(path, action);
+            const data = await response.json();
+            if(response.status === 404){
+                alert(data.message);
+                return;
+            }
+            if(data.success){
+                item.closest("tr").classList.add("d-none");
+            }
+
+        })
+    })
+}
+//end btn restore 
