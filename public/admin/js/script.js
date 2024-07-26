@@ -467,7 +467,6 @@ if(selectLimit){
 //end limit 
 //btn restore 
 const btnRestore = document.querySelectorAll("[btn-restore]");
-console.log(btnRestore)
 if(btnRestore.length > 0){
     btnRestore.forEach( (item) =>{
         item.addEventListener("click", async () =>{ 

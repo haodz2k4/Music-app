@@ -12,5 +12,5 @@ block main
                 h5.card-title #{item.fullName}
                 p.card-text(song-count) Số lượng bài hát: #{item.songCount}
                 p.card-text(follow-count) #{item.followCount} người theo dõi
-                button.btn.btn-info(href='#' btn-follow=item.id follow-status=item.isFollowed) #{item.isFollowed === "followed" ? "Đã theo dõi" : "theo dõi"  }
+                button.btn(href='#' btn-follow=item.id class=(item.isFollowed === "followed" ? "btn-warning" : "btn-info" ) follow-status=item.isFollowed) #{item.isFollowed === "followed" ? "Đã theo dõi" : "theo dõi"  }
         

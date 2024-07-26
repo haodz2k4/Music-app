@@ -44,7 +44,7 @@ export const followPatch = async (req: Request, res: Response): Promise<void>  =
             const follows = await Follow.countDocuments({
                 singerId: singerId
             })
-            res.status(200).json({success: true, message: "Follow thành công",follows: follows})
+            res.status(200).json({success: true, message: "Follow thành công",follows: follows, follow})
         }else{
             await Follow.deleteOne({
                 userId: res.locals.infoUser.id,

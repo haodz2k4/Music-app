@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
 import Song from '../../models/song.model';
-import Single from '../../models/singer.model';
+import Singer from '../../models/singer.model';
 import Like from '../../models/like.model';
 import Topic from '../../models/topics.model';
+import Follow from '../../models/follow.model';
 //[GET] "/"
 export const index = async (req: Request, res: Response) :Promise<void> =>{
     interface Limit {
@@ -31,7 +32,7 @@ export const index = async (req: Request, res: Response) :Promise<void> =>{
     }).sort({createdAt: "desc"}).limit(Limit.songs);
     for(const item of newSongs){
         item.like = await Like.countDocuments({songId: item.id})
-        const singleName = await Single.findOne({_id: item.singerId}).select("fullName");
+        const singleName = await Singer.findOne({_id: item.singerId}).select("fullName");
         item.singleName = singleName?.fullName
     }
     //end new song  
@@ -43,11 +44,20 @@ export const index = async (req: Request, res: Response) :Promise<void> =>{
     //end topics 
     
     //single 
-    const singers = await Single.find({
-        deleted: false
-    }).limit(Limit.singers);
+    const singers = await Singer.find({deleted: false, status: "active"}).limit(Limit.singers);
+    for(const item of singers){
+        item.songCount = await Song.countDocuments({
+            singerId: item.id 
+        });
+        item.followCount = await Follow.countDocuments({
+            singerId: item.id
+        });
+        item.isFollowed = await Follow.findOne({
+            userId: res.locals.infoUser.id,
+            singerId: item.id
+        }) ? "followed" : "unfollow"
+    }
     //end single 
-
     
     res.render("clients/pages/home/index.pug",{
         newSongs: newSongs,

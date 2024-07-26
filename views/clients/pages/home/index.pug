@@ -19,7 +19,7 @@ block main
                     span.card-text
                       i.fa-solid.fa-heart    #{item.like}
                       i.fa-solid.fa-headphones(style='margin-left: 12px')     #{item.listen}
-                    span.card-text 2024-06-01 
+                    span.card-text #{moment(item.createdAt).format('MMMM Do YYYY')}
           .container
             .text-center
               button.btn.btn-outline-light.btn-lg(type='button' style='color: black' limit-songs) 
@@ -55,9 +55,9 @@ block main
               img.card-img-top.rounded-circle.mx-auto.mt-3(src=item.avatar, alt='Bích Phương')
               .card-body
                 h5.card-title #{item.fullName}
-                p.card-text S&#x1ED1; l&#x1B0;&#x1EE3;ng b&agrave;i h&aacute;t: 50
-                p.card-text 416K ng&#x1B0;&#x1EDD;i theo d&otilde;i
-                a.btn.btn-primary(href='#') Theo d&otilde;i 
+                p.card-text(song-count) Số lượng bài hát: #{item.songCount}
+                p.card-text(follow-count) #{item.followCount} người theo dõi
+                button.btn(href='#' btn-follow=item.id class=(item.isFollowed === "followed" ? "btn-warning" : "btn-info" ) follow-status=item.isFollowed) #{item.isFollowed === "followed" ? "Đã theo dõi" : "theo dõi"  }
         .container
             .text-center
               button.btn.btn-outline-light.btn-lg(type='button' style='color: black' limit-singers) 

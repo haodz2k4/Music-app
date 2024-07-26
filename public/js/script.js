@@ -284,7 +284,6 @@ if(btnFollow.length > 0){
             const id = item.getAttribute("btn-follow");
             
             const url = `${Domain}/singer/follow/edit/${status}/${id}`;
-            console.log(url);
             const response = await fetch(url, option);
             
             if(response.status === 401){
@@ -294,7 +293,17 @@ if(btnFollow.length > 0){
                 const data = await response.json();
                 const followCount = item.closest(".card-body").querySelector("[follow-count]");
                 followCount.innerHTML = `${data.follows} người theo dõi`;
-                btnFollow.innerHTML = 'Đã theo dõi';
+                if(status === 'unfollow'){
+                    item.innerHTML = 'Đã theo dõi';
+                    item.classList.remove("btn-info");
+                    item.classList.add("btn-warning");
+                    item.setAttribute('follow-status','followed')
+                }else{
+                    item.innerHTML = 'theo dõi';
+                    item.classList.remove("btn-warning");
+                    item.classList.add("btn-info");
+                    item.setAttribute('follow-status','unfollow')
+                }
             }
         })
     })
