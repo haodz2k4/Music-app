@@ -8,26 +8,16 @@ block main
           img.img-fluid(src=singer.avatar, style="width: 350px; height: 350px" alt='Artist Photo')
         .col-md-8
           h1 #{singer.fullName}
-          p
-            strong Genre:
-            |  Pop, Rock
-          p
-            strong Years Active:
-            |  2005 - Present
-          p
-            strong Website:
-            |  
-            a(href='https://www.artistwebsite.com', target='_blank') www.artistwebsite.com
-      .row.artist-description
-        .col-12
-          h2 About the Artist
-          p #{singer.description}
-      .row.track-list
-        .col-12
-          h2 Tracks
-          each item in songs
-            .track-item
-                h5 Track 1: #{item.title}
-                audio(controls='')
-                source(src=item.audio, type='audio/mpeg')
+          p !{singer.description}
+            
+        .row.artist-description
+          .col-12
+        .row.track-list
+          .col-12
+            h2 Tracks
+            each item, index in songs
+              .track-item
+                  h5 Track #{index + 1}: #{item.title}
+                  audio(controls='')
+                  source(src=item.audio, type='audio/mpeg')
           

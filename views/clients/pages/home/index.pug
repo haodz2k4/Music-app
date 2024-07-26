@@ -52,7 +52,8 @@ block main
         each item in singers
           .col-lg-3.col-md-6.mb-4
             .card.singer-card.text-center
-              img.card-img-top.rounded-circle.mx-auto.mt-3(src=item.avatar, alt='Bích Phương')
+              a(href="singer/detail/" + item.slug)  
+                img.card-img-top.rounded-circle.mx-auto.mt-3(src=item.avatar, alt='Bích Phương')
               .card-body
                 h5.card-title #{item.fullName}
                 p.card-text(song-count) Số lượng bài hát: #{item.songCount}

@@ -73,7 +73,7 @@ export const detail = async (req: Request, res: Response) :Promise<void> =>{
         }
         const songs = await Song.find({
             singerId: singer.id
-        })
+        }) 
         res.render("clients/pages/singer/detail.pug",{
             singer: singer,
             songs: songs
@@ -83,4 +83,4 @@ export const detail = async (req: Request, res: Response) :Promise<void> =>{
         console.error(error);
         res.status(500).render("clients/pages/error/500.pug ");
     }
-}
+} 

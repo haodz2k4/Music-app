@@ -14,7 +14,7 @@ block main
                 img.img-fluid(src=item.infoSong.avatar, alt='Ảnh bài hát 1')
               .col-md-9
                 h3 #{item.infoSong.title} 
-                p #{item.infoSong.description}
+                p !{item.infoSong.description}
                 audio(controls='')
                   source(src=item.infoSong.audio, type='audio/mpeg')  
       else 

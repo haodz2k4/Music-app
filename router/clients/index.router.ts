@@ -8,7 +8,9 @@ import singleRouter from './singer.router';
 //require middleware here
 import showAlertMdw from '../../middlewares/clients/showAlert.middleware';
 import {infoUser} from '../../middlewares/clients/user.middleware';
+import { settingGeneral } from "../../middlewares/clients/settingGeneral.middleware";
 export default (app: Express) =>{
+    app.use(settingGeneral);
     app.use(showAlertMdw);
     app.use(infoUser);
     app.use("/topics",topicsRouter);

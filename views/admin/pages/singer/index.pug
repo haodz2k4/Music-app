@@ -88,7 +88,7 @@ block main
                     button.btn.btn-danger(type='button') 
                       i.fa-solid.fa-trash 
                       |  Xóa 
-                    button.btn.btn-warning(type='button')
+                    a(href=`/${prefixAdmin}/singers/edit/${item.id}`).btn.btn-warning
                       i.fa-solid.fa-pen-to-square  
                       |  Sửa  
                     button.btn.btn-secondary(type='button') 

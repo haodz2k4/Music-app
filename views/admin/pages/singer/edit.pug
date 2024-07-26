@@ -1,0 +1,36 @@
+extends ../../layouts/default.pug 
+
+block main 
+    .container.mt-5
+      .form-container
+        .card-body
+          h2.card-title.mb-4.text-center  Chỉnh sửa Ca Sĩ 
+          form(action=`/${prefixAdmin}/singers/edit/${singer.id}?_method=PATCH`  method="POST" enctype="multipart/form-data")
+            // Title
+            .form-group
+              label(for='title') Họ và Tên
+              input#title.form-control(type='text', name='title', required='', value=singer.fullName)
+            // Avatar
+            .form-group
+              label(for='avatar') Avatar
+              input#avatar.form-control(type='file', name='avatar')
+              img(src=singer.avatar, alt="" style='width:120px; height: 120px')
+            // Description
+            .form-group
+              label(for='description') Mô Tả 
+              textarea#description.form-control(name='description', rows='3', ) #{singer.description} 
+                 
+          
+            // Status
+            .form-group
+              label Status
+              .form-check
+                input#statusActive.form-check-input(type='radio', name='status', value='active', checked=(singer.status === 'active' ? true : false))
+                label.form-check-label(for='statusActive')
+                  | Active
+              .form-check
+                input#statusInactive.form-check-input(type='radio', name='status', value='inactive'  checked=(singer.status === 'inactive' ? true : false))
+                label.form-check-label(for='statusInactive')
+                  | Inactive
+            // Submit Button
+            button.btn.btn-primary.btn-block(type='submit') Submit

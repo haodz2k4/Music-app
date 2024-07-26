@@ -7,13 +7,13 @@ block main
           img.img-fluid.rounded(src=song.avatar, alt='Ngày Mai Người Ta Lấy Chồng')
         .col-md-6
           h1.song-title #{song.title}
-          p.song-description #{song.description}
+          p.song-description !{song.description}
           p.song-info
             strong Ca sĩ 
-            |  #{single.fullName}
+            |  #{single ? single.fullName : "Không xác định"}
           p.song-info
             strong Chủ đề 
-            |  #{topic.title}
+            |  #{topic ? topic.title : "Không xác định" }
           p.song-info
             strong Likes: 
             i.fa-solid.fa-thumbs-up(btn-like=song.id like-status=song.isLiked class=`${song.isLiked === "liked" ? "active" : ""}`)
