@@ -16,11 +16,14 @@ export const index = async (req: Request, res: Response): Promise<void> => {
         });
         item.followCount = await Follow.countDocuments({
             singerId: item.id
-        });
-        item.isFollowed = await Follow.findOne({
-            userId: res.locals.infoUser.id,
-            singerId: item.id
-        }) ? "followed" : "unfollow"
+        }); 
+        if(res.locals.infoUser){
+            item.isFollowed = await Follow.findOne({
+                userId: res.locals.infoUser.id,
+                singerId: item.id
+            }) ? "followed" : "unfollow"
+        }
+        
     }
     
     

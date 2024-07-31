@@ -44,7 +44,8 @@ export const index = async (req: Request, res: Response) :Promise<void> =>{
     //end topics 
     
     //single 
-    const singers = await Singer.find({deleted: false, status: "active"}).limit(Limit.singers);
+    const singers = await Singer.find({deleted: false, status: "active"}).limit(Limit.singers); 
+   
     for(const item of singers){
         item.songCount = await Song.countDocuments({
             singerId: item.id 
@@ -52,10 +53,13 @@ export const index = async (req: Request, res: Response) :Promise<void> =>{
         item.followCount = await Follow.countDocuments({
             singerId: item.id
         });
-        item.isFollowed = await Follow.findOne({
-            userId: res.locals.infoUser.id,
-            singerId: item.id
-        }) ? "followed" : "unfollow"
+        if(res.locals.infoUser){
+            item.isFollowed = await Follow.findOne({
+                userId: res.locals.infoUser.id,
+                singerId: item.id
+            }) ? "followed" : "unfollow"
+        }
+        
     }
     //end single 
     
