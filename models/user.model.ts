@@ -10,10 +10,6 @@ const userSchema: Schema = new Schema({
     email: String,
     birthDate: String,
     password: String,
-    token: {
-        type: String,
-        required: true
-    },
     slug: {
         type: String,
         unique: true

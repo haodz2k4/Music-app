@@ -1,8 +1,7 @@
 
 import { Request, Response } from 'express';
 import { hash, compare } from "bcrypt";
-//require helper here
-import {generateString} from '../../helpers/generate.helper'
+import jwt from "jsonwebtoken";
 //require model here
 import User from '../../models/user.model';
 import Like from '../../models/like.model';
@@ -19,7 +18,6 @@ export const register =  (req: Request, res: Response): void =>{
 //[POST] "/user/register"
 export const registerPost = async (req: Request, res: Response): Promise<void> =>{
     try {
-        req.body.token = generateString(30);
         req.body.password = await hash(req.body.password,10)
         const record = new User(req.body);
         await record.save();
@@ -56,8 +54,9 @@ export const loginPost = async (req: Request, res: Response): Promise<void> => {
                 req.flash('error_msg', 'Mật khẩu không đúng');
                 res.redirect("back");
                 return;
-            }
-            res.cookie('userToken',record.token);
+            } 
+            const token = jwt.sign({user_id: record.id},process.env.JWT_SECRET as string,{expiresIn: '30m'})
+            res.cookie('userToken',token);
             req.flash('success_msg', 'Đăng nhập thành công');
             res.redirect("/topics");
             return;

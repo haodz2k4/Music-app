@@ -1,6 +1,7 @@
 
 import { Request, Response, NextFunction } from "express";
 import User from '../../models/user.model';
+import jwt from "jsonwebtoken";
 export const requireAuth= async (req: Request, res: Response,next: NextFunction):Promise<void> =>{
     
     
@@ -10,8 +11,9 @@ export const requireAuth= async (req: Request, res: Response,next: NextFunction)
         return;
 
     }
+    const verify_token: any = jwt.verify(req.cookies.userToken,process.env.JWT_SECRET as string);
     const isExistsToken = await User.findOne({
-        token: req.cookies.userToken,
+        _id: verify_token.user_id,
         deleted: false,
         status: "active"
     })
