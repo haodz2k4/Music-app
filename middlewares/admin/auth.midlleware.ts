@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import system from '../../config/system';
 const prefixAdmin = system.prefixAdmin;
+
+import jwt from "jsonwebtoken";
 //require model 
 import Account from '../../models/accounts.model';
 import Role from '../../models/roles.model';
@@ -12,18 +14,12 @@ export const requireAuth = async (req: Request, res: Response, next: NextFunctio
         res.redirect(`/${prefixAdmin}/auth/login`);
         return;
     }
-    const isExistsToken = await Account.findOne({
-        token: tokenAccount
-    })
-    if(!isExistsToken){
-        req.flash('error_msg','Tài khoản không hợp lệ')
-        res.redirect(`/${prefixAdmin}/auth/login`);
-        return;
-    }
-    //Role 
-    const role = await Role.findById(isExistsToken.role_id);
     
+    const account_secret: any = await jwt.verify(tokenAccount,process.env.JWT_SECRET as string);
+    const account = await Account.findById(account_secret.account_id)
+    //Role 
+    const role = await Role.findById(account?.role_id);
     res.locals.role = role
-    res.locals.account = isExistsToken
+    res.locals.account = account
     next();
 }

@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
 import {compare} from 'bcrypt';
 import Account from '../../models/accounts.model';
-import system from '../../config/system';
+import system from '../../config/system'; 
+import jwt from "jsonwebtoken";
 const prefixAdmin = system.prefixAdmin;
 //[GET] "/admin/auth/login"
 export const login = (req: Request, res: Response) =>{
@@ -26,8 +27,9 @@ export const loginPost = async (req: Request, res: Response) =>{
             req.flash('error_msg','Mật khẩu của bạn đã bị sai');
             res.redirect("back");
             return;
-        }
-        res.cookie("tokenAccount",isExistsAccount.token);
+        } 
+        const token = jwt.sign({account_id: isExistsAccount.id},process.env.JWT_SECRET as string,{expiresIn: '30m'})
+        res.cookie("tokenAccount",token);
         res.redirect(`/${prefixAdmin}/dashboard`)
     } catch (error) {
         console.error(error);
