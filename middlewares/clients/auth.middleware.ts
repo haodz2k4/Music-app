@@ -32,9 +32,10 @@ export const requireAuthApi  = async (req: Request, res: Response,next: NextFunc
         res.status(401).json({sucess: false, message: "Vui lòng gửi kèm token"});
         return;
     }
-    const token: string = req.headers.authorization?.split(" ")[1];
+    const token: string = req.headers.authorization?.split(" ")[1]; 
+    const verify_token: any = jwt.verify(token,process.env.JWT_SECRET as string);
     const isExsitsToken = await User.findOne({
-        token: token,
+        _id: verify_token.user_id,
         deleted: false,
         status: "active"
     })
